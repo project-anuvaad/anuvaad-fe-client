@@ -104,7 +104,7 @@ class PdfTranslate extends React.Component {
           </Grid>
            
 
-          <Button value={"Submit"} color={'secondary'} variant={"contained"} dis={this.state.targetLanguage && this.state.sourceLanguage ? false:true} onClick={this.handleSubmit} style={{ marginTop: '2%', width: '100%'}} />
+          <Button value={"Submit"} color={'secondary'} variant={"contained"} dis={this.state.targetLanguage && this.state.sourceLanguage && this.state.files.name ? false:true} onClick={this.handleSubmit} style={{ marginTop: '2%', width: '100%'}} />
           {/* }}  */}
         </div>} style={{ width: '50%', marginLeft: '18%', marginTop: '2%', paddingBottom: '1%', minWidth: '400px' }}
       />
