@@ -36,10 +36,10 @@ class PdfTranslate extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleChange = (event) => {
-    console.log(event.target.files[0])
+  handleChange = (files) => {
+    console.log(files)
     this.setState({
-      files: event.target.files[0]
+      files: files
     });
   }
   handleNext = () => {
@@ -70,7 +70,7 @@ class PdfTranslate extends React.Component {
           <div>
 
           <Typography value='Translate docx file from source to target language' variant="h5" gutterBottom="true" style={{ marginLeft: '12%', paddingTop: '3%',marginBottom:'3%' }} />
-          <Divider />
+          <Divider style={{ marginBottom:'4%' }}/>
           {/* <Stepper steps={this.state.steps} activeStep={this.state.activeStep} alternativeLabel={true} style={{ paddingTop: '8%', width: '80%', marginLeft: '5%' }} />
           <CircularProgress color='secondary'/> */}
 
@@ -79,19 +79,19 @@ class PdfTranslate extends React.Component {
             />  */}
           <Grid container spacing={4} >
 
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             <Grid item xs={8} sm={8} lg={8} xl={8}>
               <Typography value='Please select Source File(.docx)' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '0%',marginTop:'10%',marginBottom:'10%' }} />
             </Grid>
-            <Grid item xs={4} sm={4} lg={4} xl={4}>
-          <DropZone handleChange={this.handleChange} style={{minWidth: 120}}/>
-          </Grid>
-          </Grid>
+            <Grid item xs={4} sm={4} lg={4} xl={4}> */}
+          <DropZone handleChange={this.handleChange}/>
+          {/* </Grid>
+          </Grid> */}
             <Grid item xs={8} sm={8} lg={8} xl={8}>
-              <Typography value='Please select source language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '2%' }} />
+              <Typography value='Please select source language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '8%' }} />
             </Grid>
-            <Grid item xs={3} sm={3} lg={4} xl={4}>
-              <Select id={"outlined-age-simple"} MenuItemValues={['English']} handleChange={this.handleSelectChange} value={this.state.sourceLanguage} name="sourceLanguage" style={{marginRight: '30%', marginBottom: '5%' }} />
+            <Grid item xs={3} sm={3} lg={4} xl={4}><br/><br/>
+              <Select id={"outlined-age-simple"} MenuItemValues={['English']} handleChange={this.handleSelectChange} value={this.state.sourceLanguage} name="sourceLanguage" style={{marginRight: '30%', marginBottom: '5%',marginTop: '4%'}} />
             </Grid>
           </Grid><br /><br />
           <Grid container spacing={2}>
