@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Dialog from "../../components/web/common/Dialog";
 import { withRouter } from 'react-router-dom';
 import APITransport from '../../../flux/actions/apitransport/apitransport';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,7 +18,9 @@ class ViewDocs extends Component {
         super(props)
         this.state = {
             dialogOpen: false,
-            node: null
+            node: null,
+            srcLoading: false,
+            tgtLoading: false,
         }
         this.handleSaveDoc = this.handleSaveDoc.bind(this)
         this.loadDocx = this.loadDocx.bind(this)
@@ -27,9 +30,8 @@ class ViewDocs extends Component {
     componentDidMount() {
         this.src.addEventListener("click", this.handleTextSelect.bind(this));
         this.tgt.addEventListener("click", this.handleTextSelect.bind(this));
-        console.log(this.props.match.params.basename)
         if (this.props.match.params.basename) {
-            this.setState({basename: this.props.match.params.basename})
+            this.setState({srcLoading: true, tgtLoading: true,basename: this.props.match.params.basename})
             this.loadDocx(this.props.match.params.basename)
             this.loadDocxTgt(this.props.match.params.basename)
         }
@@ -41,7 +43,9 @@ class ViewDocs extends Component {
         }).then(response => response.blob())
             .then(blob => {
                 var container = document.getElementById("doc-src");
-
+                this.setState({
+                    srcLoading: false
+                })
                 window.docx.renderAsync(blob, container, null, { debug: true })
                     .then(function (x) { console.log(x); });
             });
@@ -55,7 +59,9 @@ class ViewDocs extends Component {
         }).then(response => response.blob())
             .then(blob => {
                 var container = document.getElementById("doc-tgt");
-
+                this.setState({
+                    tgtLoading: false
+                })
                 window.docx.renderAsync(blob, container, null, { debug: true })
                     .then(function (x) { console.log(x); });
             });
@@ -98,6 +104,7 @@ class ViewDocs extends Component {
     render() {
         return (
             <div>
+                {this.state.srcLoading || this.state.tgtLoading ? <CircularProgress /> : null }
                 <Dialog open={this.state.dialogOpen} node={this.state.node} handleClick={this.handleDialogSave.bind(this)} />
                 <div id="doc-src" ref={elem => this.src = elem} style={{ width: '50%', display: 'inline-block' }}>
                 </div>
