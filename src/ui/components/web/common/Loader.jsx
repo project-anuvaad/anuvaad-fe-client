@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
         return(
         
             <div>
-                <CircularProgress color={color} />
+                <CircularProgress color={color} style={{marginLeft:'40%',marginTop:'16%', width:'5%'}}/>
             </div>
         
         )

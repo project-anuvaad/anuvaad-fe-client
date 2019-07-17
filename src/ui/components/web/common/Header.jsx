@@ -46,7 +46,8 @@ class Header extends React.Component {
 	state = {
 		open: false,
 		auth: true,
-		anchorEl: null
+		anchorEl: null,
+		heading: 'Translate File'
 
 	};
 
@@ -54,8 +55,20 @@ class Header extends React.Component {
 		this.setState({ open: true });
 	};
 
-	handleDrawerClose = () => {
-		this.setState({ open: false });
+	handleDrawerTranslate = () => {
+		
+		this.setState({ 
+			open: false,
+			heading: 'Translate File'
+		 });
+	};
+
+	handleDrawerDoc = () => {
+		
+		this.setState({ 
+			open: false,
+			heading: 'Documents'
+		 });
 	};
 
 	handleChange = (event, checked) => {
@@ -91,7 +104,7 @@ class Header extends React.Component {
 							<MenuIcon />
 						</IconButton> */}
 						<Typography variant="title" color="inherit" className={classes.flex}>
-						Language Translation
+						{this.state.heading}
 						</Typography>
 						{this.state.drawerClose}
 						{auth && (
@@ -152,14 +165,14 @@ class Header extends React.Component {
 							<ListItemText
 								disableTypography
 								primary={(
-									<Typography type="body2" style={{ color: '#FFFFFF', paddingTop:'14%'}}>
-										
+									<Typography type="body2" style={{ color: '#FFFFFF', paddingBottom:'2%'}} variant="title" color="inherit" className={classes.flex}>
+										Aanuvada Translation
           							</Typography>
 								)}
 							/>
 						</ListItem>
 						<Divider />
-						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={()=>{this.handleDrawerClose();history.push("/pdftranslate")}}>
+						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={(event)=>{this.handleDrawerTranslate();history.push("/pdftranslate")}}>
 							<ListItemIcon>
 							<SearchIcon style={{ color: 'white'}} />
 							</ListItemIcon>
@@ -167,12 +180,12 @@ class Header extends React.Component {
 								disableTypography
 								primary={(
 									<Typography type="body2" style={{ color: '#FFFFFF'}}>
-										New Translation
+										Translate File
           							</Typography>
 								)}
 							/>
 						</ListItem>
-						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={()=>{this.handleDrawerClose();history.push("/viewtranslate")}}>
+						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={(event)=>{this.handleDrawerDoc();history.push("/viewtranslate")}}>
 							<ListItemIcon>
 								<SendIcon style={{ color: 'white' }} />
 							</ListItemIcon>
@@ -180,7 +193,7 @@ class Header extends React.Component {
 								disableTypography
 								primary={(
 									<Typography type="body2" style={{ color: '#FFFFFF' }}>
-										Translation List
+										Documents
           							</Typography>
 								)}
 							/>

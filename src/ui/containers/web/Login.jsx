@@ -60,7 +60,7 @@ class Login extends React.Component {
     {
       console.log("sajish",this.state.email,password);
       localStorage.setItem('token','123')
-      setTimeout(()=>{history.push("/pdftranslate")}, 1000);
+      setTimeout(()=>{history.push("/viewtranslate")}, 1000);
     }
     else{
       alert('Wrong credentials')
