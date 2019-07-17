@@ -33,8 +33,8 @@ export default class Translation extends API {
     getFormData() {
         const formData = new FormData();
 
-            // formData.append('source', this.sourceLanguage);
-            // formData.append('target', this.targetLanguage);
+            formData.append('sourceLang', this.sourceLanguage);
+            formData.append('targetLang', this.targetLanguage);
             formData.append('file',this.files);
         return formData;
     }
