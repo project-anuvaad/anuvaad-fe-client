@@ -126,13 +126,13 @@ class Header extends React.Component {
 				</AppBar>
 				<div>
             <Grid container spacing={24} style={{ padding: 24 }}>
-                <Grid item xs={12} sm={12} lg={12} xl={12}>
+                {/* <Grid item xs={12} sm={12} lg={12} xl={12}>
         <div style={{marginLeft:'-5%',marginTop:'-1%'}}>
         <AppBar />
         </div>
-        </Grid>
-          <Grid item xs={12} sm={12} lg={12} xl={12}>
-            <div className={classes.root}>  
+        </Grid> */}
+          {/* <Grid item xs={12} sm={12} lg={12} xl={12}> */}
+            {/* <div className={classes.root}>   */}
 			
         <Drawer
           color="inherit"
@@ -238,8 +238,8 @@ class Header extends React.Component {
 
           
         </main>
-      </div>
-      </Grid>
+      {/* </div> */}
+      {/* </Grid> */}
       </Grid>
       </div>
     

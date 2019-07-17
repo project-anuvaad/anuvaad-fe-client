@@ -12,6 +12,7 @@ import history from "./web.history";
 import Translate from "./ui/containers/web/PdfTranslate";
 import EditTranslate from "./ui/containers/web/EditTranslate";
 import ViewTranslate from "./ui/containers/web/ViewTranslate";
+import ViewDoc from "./ui/containers/web/ViewDoc";
 const PrivateRoute = ({ component: Component, authenticate, ...rest }) => (
   <Route {...rest} render={props => (authenticate ? <Layout component={Component} {...props} /> : <Redirect to={{ pathname: "/" }} />)} />
 );
@@ -35,6 +36,7 @@ class AppRoutes extends React.Component {
             <PrivateRoute path="/pdftranslate" component={Translate} authenticate={this.authenticateUser()} />
             <PrivateRoute path="/edittranslate" component={EditTranslate} authenticate={this.authenticateUser()} />
             <PrivateRoute path="/viewtranslate" component={ViewTranslate} authenticate={this.authenticateUser()} />
+            <PrivateRoute path="/view-doc/:basename" component={ViewDoc} authenticate={this.authenticateUser()} />
             <PrivateRoute path="/signup" component={SignUp} authenticate={this.authenticateUser()} />
 
             <PrivateRoute path="/*" component={NotFound} authenticate={this.authenticateUser()} />

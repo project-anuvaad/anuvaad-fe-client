@@ -1,0 +1,123 @@
+// MyApp.js
+import React, { Component } from 'react';
+import Dialog from "../../components/web/common/Dialog";
+import { withRouter } from 'react-router-dom';
+import APITransport from '../../../flux/actions/apitransport/apitransport';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+var fs = require('fs');
+
+const file = 'input.docx'
+const type = 'docx'
+
+class ViewDocs extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            dialogOpen: false,
+            node: null
+        }
+        this.handleSaveDoc = this.handleSaveDoc.bind(this)
+        this.loadDocx = this.loadDocx.bind(this)
+        this.loadDocxTgt = this.loadDocxTgt.bind(this)
+    }
+
+    componentDidMount() {
+        this.src.addEventListener("click", this.handleTextSelect.bind(this));
+        this.tgt.addEventListener("click", this.handleTextSelect.bind(this));
+        console.log(this.props.match.params.basename)
+        if (this.props.match.params.basename) {
+            this.setState({basename: this.props.match.params.basename})
+            this.loadDocx(this.props.match.params.basename)
+            this.loadDocxTgt(this.props.match.params.basename)
+        }
+    }
+
+    loadDocx(basename) {
+        fetch('http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename='+basename+'.docx', {
+            method: 'GET'
+        }).then(response => response.blob())
+            .then(blob => {
+                var container = document.getElementById("doc-src");
+
+                window.docx.renderAsync(blob, container, null, { debug: true })
+                    .then(function (x) { console.log(x); });
+            });
+        // var file = document.getElementById("files").files[0];
+
+    }
+
+    loadDocxTgt(basename) {
+        fetch('http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename='+basename+'_t.docx', {
+            method: 'GET'
+        }).then(response => response.blob())
+            .then(blob => {
+                var container = document.getElementById("doc-tgt");
+
+                window.docx.renderAsync(blob, container, null, { debug: true })
+                    .then(function (x) { console.log(x); });
+            });
+        // var file = document.getElementById("files2").files[0];
+        // var container = document.getElementById("doc-tgt");
+
+        // window.docx.renderAsync(file, container, null, { debug: true })
+        //     .then(function (x) { console.log(x); });
+    }
+
+    handleTextSelect() {
+        var sel = window.getSelection();
+        if (sel && sel.focusNode) {
+            this.setState({
+                dialogOpen: true,
+                node: sel.focusNode
+            })
+            // sel.focusNode.textContent = ''
+        }
+    }
+
+    handleDialogSave(node, text) {
+        node.textContent = text
+        this.setState({
+            dialogOpen: false
+        })
+    }
+
+    handleSaveDoc() {
+        var container = document.getElementById("doc-src");
+        console.log(container.innerHTML)
+        // this.Export2Doc(container)
+        // let api = new HtmlToDoc(container.innerHTML)
+        // this.props.APITransport(api)
+        // var converted = htmlDocx.asBlob(container.outerHTML);
+        // console.log(converted)
+    }
+
+
+    render() {
+        return (
+            <div>
+                <Dialog open={this.state.dialogOpen} node={this.state.node} handleClick={this.handleDialogSave.bind(this)} />
+                <div id="doc-src" ref={elem => this.src = elem} style={{ width: '50%', display: 'inline-block' }}>
+                </div>
+                <div id="doc-tgt" ref={elem => this.tgt = elem} style={{ width: '50%', display: 'inline-block' }}>
+                </div>
+            </div>
+        );
+    }
+
+    onError(e) {
+        console.log(e)
+    }
+}
+
+
+
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    APITransport,
+}, dispatch);
+
+
+export default withRouter(connect(null, mapDispatchToProps)(ViewDocs));

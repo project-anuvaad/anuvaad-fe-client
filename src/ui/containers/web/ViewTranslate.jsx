@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
 import DeleteOutlinedIcon from '@material-ui/icons/VerticalAlignBottom';
+import ViewIcon from '@material-ui/icons/ArrowRightAltOutlined';
 
 import APITransport from '../../../flux/actions/apitransport/apitransport';
 import FetchTranslations from "../../../flux/actions/apis/translate";
@@ -77,7 +78,7 @@ class ViewTranslate extends React.Component {
         return (
 
 
-            <Grid container spacing={24} style={{ paddingTop: '2.5%', marginLeft: '-7%' }}>
+            <Grid container spacing={24} style={{ paddingTop: '2.5%', marginLeft: '-3%' }}>
 
                 <Grid
                     container
@@ -116,6 +117,7 @@ class ViewTranslate extends React.Component {
                                         <TableCell align="left" style={{ color: 'white' }}>Dates</TableCell>
                                         <TableCell align="left" style={{ color: 'white' }}>Status</TableCell>
                                         <TableCell align="center" style={{ color: 'white' }}>Download</TableCell>
+                                        <TableCell align="center" style={{ color: 'white' }}>View</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -124,7 +126,8 @@ class ViewTranslate extends React.Component {
                                             <TableCell align="left">{row.name}</TableCell>
                                             <TableCell align="left">{row.created_on.split(',')[0]}</TableCell>
                                             <TableCell align="left">{row.status}</TableCell>
-                                            <TableCell align="center">{row.status == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+row.basename+'_t.docx'} target="_blank"><DeleteOutlinedIcon style={{ width: "24", height: "24" }} /></a> : ''}
+                                            <TableCell align="center">{row.status == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+row.basename+'_t.docx'} target="_blank"><DeleteOutlinedIcon style={{ width: "24", height: "24" }} /></a> : ''}</TableCell>
+                                            <TableCell align="center">{row.status == 'COMPLETED' ? <ViewIcon style={{ width: "24", height: "24",cursor:'pointer' }} onClick={()=>{history.push('/view-doc/'+row.basename)}} />: ''}
                                             </TableCell>
                                         </TableRow>
                                     ))}
