@@ -47,7 +47,7 @@ class Header extends React.Component {
 		open: false,
 		auth: true,
 		anchorEl: null,
-		heading: 'Translate File'
+		heading: 'Translation'
 
 	};
 
@@ -59,7 +59,7 @@ class Header extends React.Component {
 		
 		this.setState({ 
 			open: false,
-			heading: 'Translate File'
+			heading: 'Translation'
 		 });
 	};
 
@@ -68,6 +68,12 @@ class Header extends React.Component {
 		this.setState({ 
 			open: false,
 			heading: 'Documents'
+		 });
+	};
+	handleDrawerClose = () => {
+		
+		this.setState({ 
+			open: false
 		 });
 	};
 
@@ -172,7 +178,7 @@ class Header extends React.Component {
 							/>
 						</ListItem>
 						<Divider />
-						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={(event)=>{this.handleDrawerTranslate();history.push("/pdftranslate")}}>
+						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={(event)=>{this.handleDrawerClose();history.push("/pdftranslate")}}>
 							<ListItemIcon>
 							<SearchIcon style={{ color: 'white'}} />
 							</ListItemIcon>
@@ -185,7 +191,7 @@ class Header extends React.Component {
 								)}
 							/>
 						</ListItem>
-						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={(event)=>{this.handleDrawerDoc();history.push("/viewtranslate")}}>
+						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={(event)=>{this.handleDrawerClose();history.push("/viewtranslate")}}>
 							<ListItemIcon>
 								<SendIcon style={{ color: 'white' }} />
 							</ListItemIcon>
