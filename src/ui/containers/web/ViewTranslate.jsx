@@ -49,7 +49,7 @@ class ViewTranslate extends React.Component {
 
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps,nextProps) {
         if (prevProps.translations !== this.props.translations) {
             console.log(prevProps.translations)
             this.setState({ translations: this.props.translations })
