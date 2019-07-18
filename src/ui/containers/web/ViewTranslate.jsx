@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
 import DeleteOutlinedIcon from '@material-ui/icons/VerticalAlignBottom';
-import ViewIcon from '@material-ui/icons/ArrowRightAltOutlined';
+import ViewIcon from '@material-ui/icons/Visibility';
 
 import APITransport from '../../../flux/actions/apitransport/apitransport';
 import FetchTranslations from "../../../flux/actions/apis/translate";
@@ -19,6 +19,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import history from "../../../web.history";
 import AddIcon from '@material-ui/icons/Add';
+import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
 import { CSVLink, CSVDownload } from "react-csv";
 import Typography from '@material-ui/core/Typography';
@@ -113,20 +114,24 @@ class ViewTranslate extends React.Component {
                                     <TableRow style={{ backgroundColor: '#335995', padding: '5%' }}>
 
                                         <TableCell align="left" style={{ color: 'white' }}>Translated Files</TableCell>
-                                        <TableCell align="left" style={{ color: 'white' }}>Dates</TableCell>
+                                        <TableCell align="left" style={{ color: 'white' }}>Timestamp</TableCell>
+                                        <TableCell align="left" style={{ color: 'white' }}>Source Language</TableCell>
+                                        <TableCell align="left" style={{ color: 'white' }}>Target Language</TableCell>
                                         <TableCell align="left" style={{ color: 'white' }}>Status</TableCell>
-                                        <TableCell align="center" style={{ color: 'white' }}>Download</TableCell>
-                                        <TableCell align="center" style={{ color: 'white' }}>View</TableCell>
+                                        <TableCell align="center" style={{ color: 'white' }}>Actions</TableCell>
+                                        
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {this.state.translations && Array.isArray(this.state.translations) && this.state.translations.map((row) => (
                                         <TableRow key={row.created_on}>
                                             <TableCell align="left">{row.name}</TableCell>
-                                            <TableCell align="left">{row.created_on.split(',')[0]}</TableCell>
+                                            <TableCell align="left">{row.created_on}</TableCell>
+                                            <TableCell align="left">Hindi</TableCell>
+                                            <TableCell align="left">English</TableCell>
                                             <TableCell align="left">{row.status}</TableCell>
-                                            <TableCell align="center">{row.status == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+row.basename+'_t.docx'} target="_blank"><DeleteOutlinedIcon style={{ width: "24", height: "24" }} /></a> : ''}</TableCell>
-                                            <TableCell align="center">{row.status == 'COMPLETED' ? <ViewIcon style={{ width: "24", height: "24",cursor:'pointer' }} onClick={()=>{history.push('/view-doc/'+row.basename)}} />: ''}
+                                            <TableCell align="center">{row.status == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+row.basename+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon aria-label="Download" style={{ width: "24", height: "24", marginRight:'12%' }} /></Tooltip></a> : ''}
+                                            {row.status == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={()=>{history.push('/view-doc/'+row.basename)} } > </ViewIcon></Tooltip>: ''}
                                             </TableCell>
                                         </TableRow>
                                     ))}
