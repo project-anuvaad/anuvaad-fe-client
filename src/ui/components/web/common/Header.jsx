@@ -175,7 +175,7 @@ class Header extends React.Component {
 								disableTypography
 								primary={(
 									<Typography type="body2" style={{ color: '#FFFFFF', paddingBottom:'2%',marginLeft:'21%'}} variant="title" color="inherit" className={classes.flex}>
-										Aanuvada
+										Anuvaad
           							</Typography>
 								)}
 							/>
