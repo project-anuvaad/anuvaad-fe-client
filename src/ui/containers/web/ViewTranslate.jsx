@@ -107,7 +107,6 @@ class ViewTranslate extends React.Component {
 
 
                 <Grid item xs={12} sm={12} lg={12} xl={12}>
-                    {this.props.apistatus.progress ? <CircularProgress /> :
                         <Paper >
                             <Table >
                                 <TableHead style={{ backgroundColor: '#335995', color: '#335995' }}>
@@ -134,7 +133,6 @@ class ViewTranslate extends React.Component {
                                 </TableBody>
                             </Table>
                         </Paper>
-                    }
                 </Grid>
             </Grid>
 

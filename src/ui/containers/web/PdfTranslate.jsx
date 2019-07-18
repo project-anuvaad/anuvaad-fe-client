@@ -65,7 +65,6 @@ class PdfTranslate extends React.Component {
     const { } = this.props;
     return (
       <div>
-        {this.state.showLoader ? <CircularProgress /> : 
         <Paper value={
           <div>
 
@@ -108,7 +107,6 @@ class PdfTranslate extends React.Component {
           {/* }}  */}
         </div>} style={{ width: '50%', marginLeft: '18%', marginTop: '2%', paddingBottom: '1%', minWidth: '400px' }}
       />
-          }
     </div>
 
     );
