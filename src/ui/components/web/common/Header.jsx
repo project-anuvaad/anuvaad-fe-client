@@ -114,7 +114,10 @@ class Header extends React.Component {
 						</Typography>
 						{this.state.drawerClose}
 						{auth && (
-							<div>
+							<div style={{
+								position: 'absolute',
+								right: '0'
+							}}>
 								<IconButton
 									aria-owns={openEl ? 'menu-appbar' : null}
 									aria-haspopup="true"
