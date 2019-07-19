@@ -63,7 +63,7 @@ const GlobalStyles = theme => ({
   },
   buttonRight:{
         marginLeft:'-50px',
-        marginTop: "17%",
+        marginTop: "19%",
         position: "fixed",
         height:'12%',
         backgroundColor:'#335995'

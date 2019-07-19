@@ -37,7 +37,7 @@ class AppRoutes extends React.Component {
             <PrivateRoute path="/edittranslate" component={EditTranslate} authenticate={this.authenticateUser()} />
             <PrivateRoute path="/viewtranslate" component={ViewTranslate} authenticate={this.authenticateUser()} />
             <PrivateRoute path="/view-doc/:basename" component={ViewDoc} authenticate={this.authenticateUser()} />
-            <PrivateRoute path="/signup" component={SignUp} />
+            <Route path="/signup" component={SignUp} />
             <PrivateRoute path="/*" component={NotFound} authenticate={this.authenticateUser()} />
           </Switch>
         </div>

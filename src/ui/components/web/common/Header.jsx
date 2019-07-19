@@ -116,7 +116,9 @@ class Header extends React.Component {
 						{auth && (
 							<div style={{
 								position: 'absolute',
-								right: '0'
+								right: '0',
+								top:'10%',
+								right:'35px'
 							}}>
 								<IconButton
 									aria-owns={openEl ? 'menu-appbar' : null}
@@ -207,6 +209,12 @@ class Header extends React.Component {
 								)}
 							/>
 						</ListItem>
+
+						<ListItem style={{paddingTop:'17%',paddingBottom:'17%',marginTop:'50%',marginLeft:'82%'}} button onClick={(event)=>{this.handleDrawerClose();history.push("/viewtranslate")}}>
+							<ListItemIcon>
+								<ChevronLeftIcon style={{ color: 'white'}} />
+							</ListItemIcon>
+						</ListItem>
 						</List>
           {/* <List>
             {["Components"].map((text, index) => (
@@ -232,17 +240,7 @@ class Header extends React.Component {
             [classes.contentShift]: open
           })}
         >
-          {this.state.open ? (
-            <Button
-            color='primary'
-            variant="contained"
-                className={classes.buttonLeft}
-              
-              onClick={this.handleDrawerClose}
-            >
-              <ChevronLeftIcon/>
-            </Button>
-          ) : (
+          {this.state.open ? '' : (
             <Button
             color='primary'
             variant="contained"

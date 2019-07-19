@@ -40,12 +40,23 @@ const LoginStyles = theme => ({
   },
   paper: {
     width:'100%',
+    minWidth:'260px',
     paddingLeft: '20%',
     paddingRight: '20%',
     paddingTop:'3%',
     paddingBottom:'3%',
     overflow: 'auto',
     marginLeft:'0%'
+  },
+  paperSign: {
+    width:'100%',
+    paddingLeft: '20%',
+    paddingRight: '20%',
+    paddingTop:'3%',
+    paddingBottom:'3%',
+    overflow: 'auto',
+    marginLeft:'0%',
+    marginTop:'30%'
   },
   buttonsDiv: {
     textAlign: 'center',

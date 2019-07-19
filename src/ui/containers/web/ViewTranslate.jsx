@@ -24,7 +24,94 @@ import { withStyles } from '@material-ui/core/styles';
 import { CSVLink, CSVDownload } from "react-csv";
 import Typography from '@material-ui/core/Typography';
 
+import MUIDataTable from "mui-datatables";
 
+
+
+
+const columns = [
+    {
+     name: "basename",
+     label: "basename",
+     options: {
+      filter: true,
+      sort: true,
+     }
+    },
+    {
+        name: "name",
+        label: "Transfor Files",
+        options: {
+         filter: true,
+         sort: true,
+        }
+       },
+    {
+     name: "created_on",
+     label: "Timestamp",
+     options: {
+      filter: true,
+     
+      sort: true,
+      sortDirection: 'desc'
+     }
+    },
+    {
+     name: "sourceLang",
+     label: "Source Language",
+     options: {
+      filter: true,
+      sort: false,
+     }
+    },
+    {
+     name: "targetLang",
+     label: "Target Language",
+     options: {
+      filter: true,
+      sort: false,
+      download: true
+     }
+    },
+    {
+        name: "status",
+        label: "Status",
+        options: {
+         filter: true,
+         sort: true,
+        }
+       },
+          {
+            name: "Action",
+            options: {
+              filter: true,
+              sort: false,
+              empty: true,
+              customBodyRender: (value, tableMeta, updateValue) => {
+
+                  
+                      if(tableMeta.rowData){
+                          console.log(tableMeta,updateValue,value)
+                        return (
+                            <a>
+                            {tableMeta.rowData[5] == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+tableMeta.rowData[0]+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'12%' , marginLeft:'10%',color: 'black'}} /></Tooltip></a> : ''}
+                            {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''}
+                            </a>
+                        );}
+                
+              }
+            }
+          },
+   ];
+
+
+   const options = {
+    filterType: 'checkbox',
+    download: false,
+    print: false
+  };
+    
+  
 class ViewTranslate extends React.Component {
     constructor(props) {
         super(props)
@@ -42,6 +129,9 @@ class ViewTranslate extends React.Component {
         }
     }
 
+
+    
+
     componentDidMount() {
 
         const { APITransport } = this.props;
@@ -52,6 +142,7 @@ class ViewTranslate extends React.Component {
     }
 
     componentDidUpdate(prevProps,nextProps) {
+        console.log("tttt",this.state.translations)
         if (prevProps.translations !== this.props.translations) {
             console.log(prevProps.translations)
             this.setState({ translations: this.props.translations })
@@ -76,10 +167,32 @@ class ViewTranslate extends React.Component {
 
         const { user, classes, location } = this.props;
 
+
+        
+
         return (
+            <div>
 
 
-            <Grid container spacing={24} style={{ paddingTop: '2.5%', marginLeft: '-3%' }}>
+                    <Button variant="extendedFab" color="secondary" aria-label="Add" style={{marginLeft:'-5%', marginTop:'1%'}} onClick={() => { history.push("/pdftranslate") }}>
+                        <AddIcon /> Translate
+                    </Button>
+ 
+<div style={{marginLeft: '-5%',
+    marginRight: '3%',
+    marginTop: '40px'}}>
+  
+ <MUIDataTable
+   title={"Documents"}
+   data={this.state.translations}
+   columns={columns}
+   options={options}
+   
+ />
+ </div>
+
+
+            {/* <Grid container spacing={24} style={{ paddingTop: '2.5%', marginLeft: '-3%' }}>
 
                 <Grid
                     container
@@ -109,6 +222,12 @@ class ViewTranslate extends React.Component {
 
                 <Grid item xs={12} sm={12} lg={12} xl={12}>
                         <Paper >
+
+                        
+
+
+
+
                             <Table >
                                 <TableHead style={{ backgroundColor: '#335995', color: '#335995' }}>
                                     <TableRow style={{ backgroundColor: '#335995', padding: '5%' }}>
@@ -127,10 +246,10 @@ class ViewTranslate extends React.Component {
                                         <TableRow key={row.created_on}>
                                             <TableCell align="left">{row.name}</TableCell>
                                             <TableCell align="left">{row.created_on}</TableCell>
-                                            <TableCell align="left">Hindi</TableCell>
-                                            <TableCell align="left">English</TableCell>
+                                            <TableCell align="left">{row.sourceLang}</TableCell>
+                                            <TableCell align="left">{row.targetLang}</TableCell>
                                             <TableCell align="left">{row.status}</TableCell>
-                                            <TableCell align="center">{row.status == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+row.basename+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon aria-label="Download" style={{ width: "24", height: "24", marginRight:'12%' }} /></Tooltip></a> : ''}
+                                            <TableCell align="center">{row.status == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+row.basename+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'12%' , marginLeft:'10%',color: 'black'}} /></Tooltip></a> : ''}
                                             {row.status == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={()=>{history.push('/view-doc/'+row.basename)} } > </ViewIcon></Tooltip>: ''}
                                             </TableCell>
                                         </TableRow>
@@ -139,7 +258,8 @@ class ViewTranslate extends React.Component {
                             </Table>
                         </Paper>
                 </Grid>
-            </Grid>
+            </Grid> */}
+            </div>
 
         );
     }
