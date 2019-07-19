@@ -3,7 +3,10 @@ import { Route, Redirect, Switch, Router } from "react-router-dom";
 
 import { connect } from "react-redux";
 import Login from "./ui/containers/web/Login";
+import Home from "./ui/containers/web/Home";
+import Callback from "./ui/containers/web/Callback";
 import SignUp from "./ui/containers/web/SignUp";
+import Logout from "./ui/containers/web/Logout";
 import Layout from "./ui/containers/web/Layout";
 
 import NotFound from "./ui/containers/web/NotFound";
@@ -18,21 +21,22 @@ const PrivateRoute = ({ component: Component, authenticate, ...rest }) => (
 );
 
 class AppRoutes extends React.Component {
-  authenticateUser = () => 
-    // const { user } = this.props;
-    // const token = localStorage.getItem("token");
-    // if (user.token || token) {
-       true
-    // }
-    // return false;
-  ;
+  authenticateUser = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      return true;
+    }
+    return false;
+  }
 
   render() {
     return (
       <Router history={history}>
         <div>
           <Switch>
-            <Route exact path="/" component={Login} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/callback" component={Callback} />
+            <Route exact path="/logout" component={Logout} />
             <PrivateRoute path="/pdftranslate" component={Translate} authenticate={this.authenticateUser()} />
             <PrivateRoute path="/edittranslate" component={EditTranslate} authenticate={this.authenticateUser()} />
             <PrivateRoute path="/viewtranslate" component={ViewTranslate} authenticate={this.authenticateUser()} />
