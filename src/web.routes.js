@@ -17,12 +17,13 @@ import EditTranslate from "./ui/containers/web/EditTranslate";
 import ViewTranslate from "./ui/containers/web/ViewTranslate";
 import ViewDoc from "./ui/containers/web/ViewDoc";
 const PrivateRoute = ({ component: Component, authenticate, ...rest }) => (
-  <Route {...rest} render={props => (authenticate ? <Layout component={Component} {...props} /> : <Redirect to={{ pathname: "/" }} />)} />
+  <Route {...rest} render={props => (authenticate() ? <Layout component={Component} {...props} /> : <Redirect to={{ pathname: "/" }} />)} />
 );
 
 class AppRoutes extends React.Component {
   authenticateUser = () => {
     const token = localStorage.getItem("token");
+    console.log(token)
     if (token) {
       return true;
     }
@@ -37,12 +38,12 @@ class AppRoutes extends React.Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/callback" component={Callback} />
             <Route exact path="/logout" component={Logout} />
-            <PrivateRoute path="/pdftranslate" component={Translate} authenticate={this.authenticateUser()} />
-            <PrivateRoute path="/edittranslate" component={EditTranslate} authenticate={this.authenticateUser()} />
-            <PrivateRoute path="/viewtranslate" component={ViewTranslate} authenticate={this.authenticateUser()} />
-            <PrivateRoute path="/view-doc/:basename" component={ViewDoc} authenticate={this.authenticateUser()} />
+            <PrivateRoute path="/pdftranslate" component={Translate} authenticate={this.authenticateUser} />
+            <PrivateRoute path="/edittranslate" component={EditTranslate} authenticate={this.authenticateUser} />
+            <PrivateRoute path="/viewtranslate" component={ViewTranslate} authenticate={this.authenticateUser} />
+            <PrivateRoute path="/view-doc/:basename" component={ViewDoc} authenticate={this.authenticateUser} />
             <Route path="/signup" component={SignUp} />
-            <PrivateRoute path="/*" component={NotFound} authenticate={this.authenticateUser()} />
+            <PrivateRoute path="/*" component={NotFound} authenticate={this.authenticateUser} />
           </Switch>
         </div>
       </Router>

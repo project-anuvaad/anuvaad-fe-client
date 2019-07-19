@@ -142,7 +142,7 @@ class Header extends React.Component {
 									open={openEl}
 									onClose={this.handleClose}
 								>
-									<MenuItem onClick={()=>{this.handleClose();history.push("/")}}>Logout</MenuItem>
+									<MenuItem onClick={()=>{this.handleClose();history.push("/logout")}}>Logout</MenuItem>
 								</Menu>
 							</div>
 						)}
