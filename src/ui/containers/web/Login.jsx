@@ -24,7 +24,7 @@ import APITransport from "../../../flux/actions/apitransport/apitransport";
 import history from "../../../web.history";
 import TextField from '../../components/web/common/TextField';
 import SignUp from './SignUp';
-
+import Grid from '@material-ui/core/Grid';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -58,7 +58,7 @@ class Login extends React.Component {
     const apiObj = new LoginAPI(email, password);
     if((email == 'aroop' || email =='ajitesh' || email == 'kd' || email =='vivek' )&& password =='test')
     {
-      console.log("sajish",this.state.email,password);
+      
       localStorage.setItem('token','123')
       setTimeout(()=>{history.push("/viewtranslate")}, 1000);
     }
@@ -76,7 +76,7 @@ class Login extends React.Component {
           <div className={classes.loginContainer}>
             <Paper className={classes.paper}>
               <form method="post">
-                <Typography style={{marginTop:'3%', marginBottom:'8%'}}>Sign In</Typography>
+                <Typography style={{marginTop:'3%', marginBottom:'8%', fontSize:'24px'}} >Sign In</Typography>
                 <FormControl fullWidth>
                 <TextField value={"UserName"} id="outlined-required"
               margin="normal" varient="outlined" onChange={this.processInputReceived("email")} style={{width:'100%', marginBottom:'4%'}}
@@ -95,7 +95,7 @@ class Login extends React.Component {
                     Login
                   </Button>
 
-                  <FormControlLabel
+                  <FormControlLabel style={{marginTop:'2%'}}
                     control={
                       <Checkbox
                         className={classes.checkRemember.className}
@@ -105,7 +105,18 @@ class Login extends React.Component {
                     }
                     label="Remember me"
                   />
-                  <Link onClick={() => {{history.push("/signup")}}}>Register</Link>
+
+
+<Grid container style={{marginBottom:'5%',marginTop:'3%'}}>
+                <Grid item xs={6} sm={6} lg={6} xl={6}>
+                <Link  onClick={() => {{history.push("/signup")}}}><Typography color ='primary'>Register</Typography></Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6} lg={6} xl={6} align='end'>
+                  <Link onClick={() => {{history.push("/signup")}}}><Typography color ='primary'>Forgot Password?</Typography></Link>
+                  </Grid>
+                  </Grid>
+                  
+                  
        
                   {/* </Link> */}
                 </div>

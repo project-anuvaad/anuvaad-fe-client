@@ -4,14 +4,15 @@
 import API from "./api";
 import C from "../constants";
 
-export default class Translation extends API {
-    constructor(sourceLanguage, targetLanguage, files, timeout = 2000) {
+export default class Signup extends API {
+    constructor(firstname, lastname, email, password, timeout = 2000) {
         super('POST', timeout, false, 'MULTIPART');
-        this.type = C.TRANSLATION;
-        this.files = files
-        this.sourceLanguage = sourceLanguage
-        this.targetLanguage = targetLanguage
-        this.pdf_translate={}
+        this.type = C.SIGNUP;
+        this.firstname = firstname
+        this.lastname = lastname
+        this.email = email
+        this.password = password
+        this.response={}
         
     }
 
@@ -22,7 +23,7 @@ export default class Translation extends API {
     processResponse(res) {
         super.processResponse(res)
         if (res.data) {
-            this.pdf_translate = res.data;
+            this.response = res.data;
         }
     }
 
@@ -31,11 +32,14 @@ export default class Translation extends API {
     }
 
     getFormData() {
+        
         const formData = new FormData();
 
-            formData.append('sourceLang', this.sourceLanguage);
-            formData.append('targetLang', this.targetLanguage);
-            formData.append('file',this.files);
+            formData.append('firstname', this.firstname);
+            formData.append('lastname', this.lastname);
+            formData.append('email',this.email);
+            formData.append('password',this.password);
+
         return formData;
     }
 
@@ -48,7 +52,7 @@ export default class Translation extends API {
     }
 
     getPayload() {
-        return this.pdf_translate
+        return this.response
     }
 
 }

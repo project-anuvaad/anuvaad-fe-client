@@ -114,14 +114,19 @@ class Header extends React.Component {
 						</Typography>
 						{this.state.drawerClose}
 						{auth && (
-							<div>
+							<div style={{
+								position: 'absolute',
+								right: '0',
+								top:'10%',
+								right:'35px'
+							}}>
 								<IconButton
 									aria-owns={openEl ? 'menu-appbar' : null}
 									aria-haspopup="true"
 									onClick={this.handleMenu}
 									color="inherit"
 								>
-									<AccountCircle />
+									<AccountCircle/>
 								</IconButton>
 								<Menu
 									id="menu-appbar"
@@ -137,7 +142,7 @@ class Header extends React.Component {
 									open={openEl}
 									onClose={this.handleClose}
 								>
-									<MenuItem onClick={()=>{this.handleClose();history.push("/")}}>Logout</MenuItem>
+									<MenuItem onClick={()=>{this.handleClose();history.push("/logout")}}>Logout</MenuItem>
 								</Menu>
 							</div>
 						)}
@@ -171,8 +176,8 @@ class Header extends React.Component {
 							<ListItemText
 								disableTypography
 								primary={(
-									<Typography type="body2" style={{ color: '#FFFFFF', paddingBottom:'2%'}} variant="title" color="inherit" className={classes.flex}>
-										Aanuvada
+									<Typography type="body2" style={{ color: '#FFFFFF', paddingBottom:'2%',marginLeft:'21%'}} variant="title" color="inherit" className={classes.flex}>
+										Anuvaad
           							</Typography>
 								)}
 							/>
@@ -204,6 +209,12 @@ class Header extends React.Component {
 								)}
 							/>
 						</ListItem>
+
+						<ListItem style={{paddingTop:'17%',paddingBottom:'17%',marginTop:'67%',marginLeft:'82%'}} button onClick={(event)=>{this.handleDrawerClose();history.push("/viewtranslate")}}>
+							<ListItemIcon>
+								<ChevronLeftIcon style={{ color: 'white'}} />
+							</ListItemIcon>
+						</ListItem>
 						</List>
           {/* <List>
             {["Components"].map((text, index) => (
@@ -229,17 +240,7 @@ class Header extends React.Component {
             [classes.contentShift]: open
           })}
         >
-          {this.state.open ? (
-            <Button
-            color='primary'
-            variant="contained"
-                className={classes.buttonLeft}
-              
-              onClick={this.handleDrawerClose}
-            >
-              <ChevronLeftIcon/>
-            </Button>
-          ) : (
+          {this.state.open ? '' : (
             <Button
             color='primary'
             variant="contained"

@@ -36,6 +36,13 @@ const themeDefault = createMuiTheme({
     default: '#1976d2',
     color:'nherit'
   },
+
+  Link:
+  {
+    fontFamily: '"Source Sans Pro", "Arial", sans-serif',
+    fontSize: 16,
+    color:"inherit"
+  },
   
 
   
