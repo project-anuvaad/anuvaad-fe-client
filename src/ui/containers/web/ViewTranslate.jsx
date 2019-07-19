@@ -39,7 +39,7 @@ const columns = [
     },
     {
         name: "name",
-        label: "Transfor Files",
+        label: "Transfer Files",
         options: {
          filter: true,
          sort: true,
@@ -93,7 +93,7 @@ const columns = [
                           console.log(tableMeta,updateValue,value)
                         return (
                             <a>
-                            {tableMeta.rowData[5] == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+tableMeta.rowData[0]+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'12%' , marginLeft:'10%',color: 'black'}} /></Tooltip></a> : ''}
+                            {tableMeta.rowData[5] == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+tableMeta.rowData[0]+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'12%',color: 'black'}} /></Tooltip></a> : ''}
                             {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''}
                             </a>
                         );}
@@ -108,7 +108,8 @@ const columns = [
     filterType: 'checkbox',
     download: false,
     print: false,
-    fixedHeader: true
+    fixedHeader: true,
+    selectableRows:'none'
   };
     
   
@@ -172,11 +173,11 @@ class ViewTranslate extends React.Component {
 
         return (
             <div>
-                    <Button variant="extendedFab" color="secondary" aria-label="Add" style={{marginLeft:'-5%', marginTop:'1%'}} onClick={() => { history.push("/pdftranslate") }}>
+                    <Button variant="extendedFab" color="secondary" aria-label="Add" style={{marginLeft:'-4%', marginTop:'1%'}} onClick={() => { history.push("/pdftranslate") }}>
                         <AddIcon /> Translate
                     </Button>
  
-                    <div style={{marginLeft: '-5%', marginRight: '3%', marginTop: '40px'}}>
+                    <div style={{marginLeft: '-4%', marginRight: '3%', marginTop: '40px'}}>
                         <MUIDataTable title={"Documents"} data={this.state.translations} columns={columns} options={options}/>
                     </div>
 
