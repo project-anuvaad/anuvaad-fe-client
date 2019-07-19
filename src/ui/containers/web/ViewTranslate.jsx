@@ -34,8 +34,7 @@ const columns = [
      name: "basename",
      label: "basename",
      options: {
-      filter: true,
-      sort: true,
+        display: 'excluded',
      }
     },
     {
@@ -70,7 +69,7 @@ const columns = [
      options: {
       filter: true,
       sort: false,
-      download: true
+     
      }
     },
     {
@@ -108,7 +107,8 @@ const columns = [
    const options = {
     filterType: 'checkbox',
     download: false,
-    print: false
+    print: false,
+    fixedHeader: true
   };
     
   
@@ -172,24 +172,13 @@ class ViewTranslate extends React.Component {
 
         return (
             <div>
-
-
                     <Button variant="extendedFab" color="secondary" aria-label="Add" style={{marginLeft:'-5%', marginTop:'1%'}} onClick={() => { history.push("/pdftranslate") }}>
                         <AddIcon /> Translate
                     </Button>
  
-<div style={{marginLeft: '-5%',
-    marginRight: '3%',
-    marginTop: '40px'}}>
-  
- <MUIDataTable
-   title={"Documents"}
-   data={this.state.translations}
-   columns={columns}
-   options={options}
-   
- />
- </div>
+                    <div style={{marginLeft: '-5%', marginRight: '3%', marginTop: '40px'}}>
+                        <MUIDataTable title={"Documents"} data={this.state.translations} columns={columns} options={options}/>
+                    </div>
 
 
             {/* <Grid container spacing={24} style={{ paddingTop: '2.5%', marginLeft: '-3%' }}>
