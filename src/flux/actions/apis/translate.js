@@ -16,6 +16,7 @@ export default class FetchTranslations extends API {
     }
 
     processResponse(res) {
+        console.log("response---",res)
         super.processResponse(res)
         if (res.data) {
             this.translations = res.data;

@@ -57,9 +57,18 @@ class ViewTranslate extends React.Component {
     }
 
 
+    componentDidMount() {
+        
+        const { APITransport } = this.props;
+        const apiObj = new FetchTranslations();
+        APITransport(apiObj);
+        this.setState({showLoader:true})
+        
+    }
+
     handleSubmit = (value,filename) => {
         file=value;
-        console.log(filename);
+        
         this.setState({open:true,
             value,filename
         });
@@ -67,15 +76,13 @@ class ViewTranslate extends React.Component {
                 
       }
       handleClickOpen = (basename) => {
-          console.log("click",basename)
         const { APITransport } = this.props;
         const apiObj = new DeleteFile(basename);
         APITransport(apiObj);
-            this.setState({open: false,showLoader:true})
-            const apiObj1 = new FetchTranslations();
-            this.setState({showLoader:true})
-        APITransport(apiObj1);
-        
+        this.setState({open: false,showLoader:true})
+        const apiObj1 = new FetchTranslations();
+        APITransport(apiObj1)
+        this.setState({showLoader:true})
         return false;
       };
     
@@ -83,16 +90,9 @@ class ViewTranslate extends React.Component {
         this.setState({ open: false });
       };
     
-    componentDidMount() {
+    
 
-        const { APITransport } = this.props;
-        const apiObj = new FetchTranslations();
-        APITransport(apiObj);
-
-
-    }
-
-    componentDidUpdate(prevProps,nextProps) {
+    componentDidUpdate(prevProps,nexpProps) {
         
         if (prevProps.translations !== this.props.translations) {
             this.setState({ translations: this.props.translations })
@@ -125,7 +125,6 @@ class ViewTranslate extends React.Component {
              label: "Timestamp",
              options: {
               filter: true,
-             
               sort: true,
               sortDirection: 'desc'
              }
@@ -168,8 +167,8 @@ class ViewTranslate extends React.Component {
                                 return (
                                     <a>
                                     {tableMeta.rowData[5] == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+tableMeta.rowData[0]+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'8%',color: 'black'}} /></Tooltip></a> : ''}
-                                    {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%',marginRight:'8%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''}
-                                    {tableMeta.rowData[5] == 'COMPLETED' ?<Tooltip title="View"><DeleteIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={(event) =>{this.handleSubmit(tableMeta.rowData[0],tableMeta.rowData[1])}}  > </DeleteIcon></Tooltip>:''}
+                                    {/* {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%',marginRight:'8%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''} */}
+                                    {tableMeta.rowData[5] == 'COMPLETED' ?<Tooltip title="Delete"><DeleteIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={(event) =>{this.handleSubmit(tableMeta.rowData[0],tableMeta.rowData[1])}}  > </DeleteIcon></Tooltip>:''}
                                     </a>
                                 );}
                         
@@ -198,7 +197,7 @@ class ViewTranslate extends React.Component {
                     <div style={{marginLeft: '-4%', marginRight: '3%', marginTop: '40px'}}>
                         <MUIDataTable title={"Documents"} data={this.state.translations} columns={columns} options={options}/>
                     </div>
-                    <Dialog
+                   {this.state.open && <Dialog
           open={this.state.open}
           
           keepMounted
@@ -222,7 +221,7 @@ class ViewTranslate extends React.Component {
               Yes
             </Button>
           </DialogActions>
-        </Dialog>
+                   </Dialog> }
             </div>
 
         );
