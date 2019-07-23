@@ -184,7 +184,8 @@ class ViewTranslate extends React.Component {
             download: false,
             print: false,
             fixedHeader: true,
-            filter:false
+            filter:false,
+            selectableRows:'none'
           };
         
 
