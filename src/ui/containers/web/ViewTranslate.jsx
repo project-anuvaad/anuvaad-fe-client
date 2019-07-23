@@ -25,13 +25,16 @@ import { CSVLink, CSVDownload } from "react-csv";
 import Typography from '@material-ui/core/Typography';
 import DeleteFile from "../../../flux/actions/apis/deletefile";
 import MUIDataTable from "mui-datatables";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 
 
 
-
-
-    
-  
+var  file="";
 class ViewTranslate extends React.Component {
     constructor(props) {
         super(props)
@@ -45,23 +48,41 @@ class ViewTranslate extends React.Component {
             file: {},
             corpus_type: 'single',
             hindiFile: {},
-            englishFile: {}
+            englishFile: {},
+            open:false,
+            value:'',
+            filename:''
+
         }
     }
 
 
-    handleSubmit = (value) => {
-
-        const { APITransport } = this.props;
-        const apiObj = new DeleteFile(value);
-        APITransport(apiObj);
-            this.setState({showLoader:true})
-            const apiObj1 = new FetchTranslations();
-        APITransport(apiObj1);
-        this.setState({showLoader:true})
+    handleSubmit = (value,filename) => {
+        file=value;
+        console.log(filename);
+        this.setState({open:true,
+            value,filename
+        });
+        
                 
       }
-
+      handleClickOpen = (basename) => {
+          console.log("click",basename)
+        const { APITransport } = this.props;
+        const apiObj = new DeleteFile(basename);
+        APITransport(apiObj);
+            this.setState({open: false,showLoader:true})
+            const apiObj1 = new FetchTranslations();
+            this.setState({showLoader:true})
+        APITransport(apiObj1);
+        
+        return false;
+      };
+    
+      handleClose = () => {
+        this.setState({ open: false });
+      };
+    
     componentDidMount() {
 
         const { APITransport } = this.props;
@@ -72,7 +93,7 @@ class ViewTranslate extends React.Component {
     }
 
     componentDidUpdate(prevProps,nextProps) {
-        console.log("tttt",this.state.translations)
+        
         if (prevProps.translations !== this.props.translations) {
             this.setState({ translations: this.props.translations })
 
@@ -141,15 +162,14 @@ class ViewTranslate extends React.Component {
                       sort: false,
                       empty: true,
                       customBodyRender: (value, tableMeta, updateValue) => {
-        
-                          
+
+                                    
                               if(tableMeta.rowData){
-                                  console.log(tableMeta,updateValue,value)
                                 return (
                                     <a>
                                     {tableMeta.rowData[5] == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+tableMeta.rowData[0]+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'8%',color: 'black'}} /></Tooltip></a> : ''}
                                     {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%',marginRight:'8%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''}
-                                    {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><DeleteIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={() =>{this.handleSubmit(tableMeta.rowData[0])}}  > </DeleteIcon></Tooltip>: ''}
+                                    {tableMeta.rowData[5] == 'COMPLETED' ?<Tooltip title="View"><DeleteIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={(event) =>{this.handleSubmit(tableMeta.rowData[0],tableMeta.rowData[1])}}  > </DeleteIcon></Tooltip>:''}
                                     </a>
                                 );}
                         
@@ -164,7 +184,7 @@ class ViewTranslate extends React.Component {
             download: false,
             print: false,
             fixedHeader: true,
-            selectableRows:'none'
+            filter:false
           };
         
 
@@ -177,6 +197,31 @@ class ViewTranslate extends React.Component {
                     <div style={{marginLeft: '-4%', marginRight: '3%', marginTop: '40px'}}>
                         <MUIDataTable title={"Documents"} data={this.state.translations} columns={columns} options={options}/>
                     </div>
+                    <Dialog
+          open={this.state.open}
+          
+          keepMounted
+          onClose={this.handleClose}
+          aria-labelledby="alert-dialog-slide-title"
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle id="alert-dialog-slide-title">
+           Delete
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-slide-description">
+              Are you sure you want to delete {this.state.filename} file?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              No
+            </Button>
+            <Button onClick={(event) =>{this.handleClickOpen(file)}} color="primary">
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
             </div>
 
         );
