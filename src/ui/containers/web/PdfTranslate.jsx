@@ -42,21 +42,17 @@ class PdfTranslate extends React.Component {
       files: files
     });
   }
-  handleNext = () => {
-    this.setState(state => ({
-      activeStep: state.activeStep + 1,
-    }));
-  };
 
   handleSubmit = () => {
     const { APITransport } = this.props;
     const apiObj = new PdfTranslation(this.state.sourceLanguage, this.state.targetLanguage, this.state.files);
     APITransport(apiObj);
     this.setState({showLoader:true})
-    setTimeout(()=>{history.push("/viewtranslate")},4000)
+    setTimeout(()=>{history.push("/viewtranslate")},12000)
     
   }
 
+ 
 
 
 
@@ -70,22 +66,8 @@ class PdfTranslate extends React.Component {
 
           <Typography value='Translate docx file from source to target language' variant="h5" gutterBottom="true" style={{ marginLeft: '12%', paddingTop: '3%',marginBottom:'3%' }} />
           <Divider style={{ marginBottom:'4%' }}/>
-          {/* <Stepper steps={this.state.steps} activeStep={this.state.activeStep} alternativeLabel={true} style={{ paddingTop: '8%', width: '80%', marginLeft: '5%' }} />
-          <CircularProgress color='secondary'/> */}
-
-          {/* <TextField value={"First Name"} id="outlined-required"
-            margin="normal" varient="outlined"
-            />  */}
           <Grid container spacing={4} >
-
-          {/* <Grid container spacing={2}>
-            <Grid item xs={8} sm={8} lg={8} xl={8}>
-              <Typography value='Please select Source File(.docx)' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '0%',marginTop:'10%',marginBottom:'10%' }} />
-            </Grid>
-            <Grid item xs={4} sm={4} lg={4} xl={4}> */}
           <DropZone handleChange={this.handleChange}/>
-          {/* </Grid>
-          </Grid> */}
             <Grid item xs={8} sm={8} lg={8} xl={8}>
               <Typography value='Please select source language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '8%' }} />
             </Grid>
