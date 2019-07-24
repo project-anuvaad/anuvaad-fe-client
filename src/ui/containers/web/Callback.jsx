@@ -9,6 +9,7 @@ class Callback extends React.Component {
         hash.map((h) => {
             if (h.indexOf('access_token') > 0) {
                 localStorage.setItem('token', h.split('access_token=')[1])
+                console.log("sajish",localStorage.setItem('token', h.split('access_token=')[1]))
                 history.push("/viewtranslate")
             }
         })

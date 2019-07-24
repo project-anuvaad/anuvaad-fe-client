@@ -1,7 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-
-import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Button from '@material-ui/core/Button';
@@ -10,19 +8,9 @@ import ViewIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import APITransport from '../../../flux/actions/apitransport/apitransport';
 import FetchTranslations from "../../../flux/actions/apis/translate";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import history from "../../../web.history";
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
-import { withStyles } from '@material-ui/core/styles';
-import { CSVLink, CSVDownload } from "react-csv";
-import Typography from '@material-ui/core/Typography';
 import DeleteFile from "../../../flux/actions/apis/deletefile";
 import MUIDataTable from "mui-datatables";
 import Dialog from '@material-ui/core/Dialog';
@@ -30,8 +18,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
-
+import Snackbar from "@material-ui/core/Snackbar";
+import MySnackbarContentWrapper from "../../components/web/common/Snackbar";
 
 
 var  file="";
@@ -51,14 +39,14 @@ class ViewTranslate extends React.Component {
             englishFile: {},
             open:false,
             value:'',
-            filename:''
+            filename:'',
+            snack:false,
+            message:''
 
         }
     }
 
-
     componentDidMount() {
-        
         const { APITransport } = this.props;
         const apiObj = new FetchTranslations();
         APITransport(apiObj);
@@ -68,42 +56,35 @@ class ViewTranslate extends React.Component {
 
     handleSubmit = (value,filename) => {
         file=value;
-        
         this.setState({open:true,
             value,filename
-        });
-        
-                
-      }
-      handleClickOpen = (basename) => {
+        });           
+    }
+
+    handleClickOpen = (basename) => {
         const { APITransport } = this.props;
         const apiObj = new DeleteFile(basename);
         APITransport(apiObj);
-        this.setState({open: false,showLoader:true})
+        this.setState({open: false,showLoader:true,message:this.state.filename+" file deleted successfully!"})
         const apiObj1 = new FetchTranslations();
         APITransport(apiObj1)
-        this.setState({showLoader:true})
+        this.setState({showLoader:true })
+        setTimeout(()=>{this.setState({snack:true })},700) 
         return false;
-      };
+    };
     
-      handleClose = () => {
-        this.setState({ open: false });
-      };
+    handleClose = () => {
+        this.setState({ open: false,snack:false });
+    };
     
-    
-
     componentDidUpdate(prevProps,nexpProps) {
-        
         if (prevProps.translations !== this.props.translations) {
-            this.setState({ translations: this.props.translations })
-
+            this.setState({ translations: this.props.translations})
         }
     }
 
     render() {
-
         const { user, classes, location } = this.props;
-
         const columns = [
             {
              name: "basename",
@@ -119,7 +100,7 @@ class ViewTranslate extends React.Component {
                  filter: true,
                  sort: true,
                 }
-               },
+            },
             {
              name: "created_on",
              label: "Timestamp",
@@ -129,6 +110,7 @@ class ViewTranslate extends React.Component {
               sortDirection: 'desc'
              }
             },
+
             {
              name: "sourceLang",
              label: "Source Language",
@@ -137,15 +119,16 @@ class ViewTranslate extends React.Component {
               sort: false,
              }
             },
+
             {
              name: "targetLang",
              label: "Target Language",
              options: {
               filter: true,
               sort: false,
-             
              }
             },
+
             {
                 name: "status",
                 label: "Status",
@@ -154,74 +137,79 @@ class ViewTranslate extends React.Component {
                  sort: true,
                 }
                },
-                  {
-                    name: "Action",
-                    options: {
-                      filter: true,
-                      sort: false,
-                      empty: true,
-                      customBodyRender: (value, tableMeta, updateValue) => {
-
-                                    
-                              if(tableMeta.rowData){
-                                return (
-                                    <a>
-                                    {tableMeta.rowData[5] == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+tableMeta.rowData[0]+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'8%',color: 'black'}} /></Tooltip></a> : ''}
-                                    {/* {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%',marginRight:'8%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''} */}
-                                    {tableMeta.rowData[5] == 'COMPLETED' ?<Tooltip title="Delete"><DeleteIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={(event) =>{this.handleSubmit(tableMeta.rowData[0],tableMeta.rowData[1])}}  > </DeleteIcon></Tooltip>:''}
-                                    </a>
-                                );}
-                        
-                      }
+            {
+                name: "Action",
+                options: {
+                    filter: true,
+                    sort: false,
+                    empty: true,
+                    customBodyRender: (value, tableMeta, updateValue) => {   
+                        if(tableMeta.rowData){
+                            return (
+                                <div style={{width:'120px'}}>
+                                {tableMeta.rowData[5] == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+tableMeta.rowData[0]+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'8%',color: 'black'}} /></Tooltip></a> : ''}
+                                    {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%',marginRight:'8%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''} 
+                                {tableMeta.rowData[5] == 'COMPLETED' ?<Tooltip title="Delete"><DeleteIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={(event) =>{this.handleSubmit(tableMeta.rowData[0],tableMeta.rowData[1])}}  > </DeleteIcon></Tooltip>:''}
+                                </div>
+                            );
+                        }
+                
                     }
-                  },
-           ];
-        
-        
-           const options = {
+                }
+            },
+        ];
+         
+        const options = {
             filterType: 'checkbox',
             download: false,
             print: false,
             fixedHeader: true,
             filter:false,
             selectableRows:'none'
-          };
+        };
         
-
         return (
             <div>
-                    <Button variant="extendedFab" color="secondary" aria-label="Add" style={{marginLeft:'-4%', marginTop:'1%'}} onClick={() => { history.push("/pdftranslate") }}>
-                        <AddIcon /> Translate
-                    </Button>
- 
-                    <div style={{marginLeft: '-4%', marginRight: '3%', marginTop: '40px'}}>
-                        <MUIDataTable title={"Documents"} data={this.state.translations} columns={columns} options={options}/>
-                    </div>
-                   {this.state.open && <Dialog
-          open={this.state.open}
-          
-          keepMounted
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle id="alert-dialog-slide-title">
-           Delete
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Are you sure you want to delete {this.state.filename} file?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              No
-            </Button>
-            <Button onClick={(event) =>{this.handleClickOpen(file)}} color="primary">
-              Yes
-            </Button>
-          </DialogActions>
-                   </Dialog> }
+
+                <Button variant="extendedFab" color="secondary" aria-label="Add" style={{marginLeft:'-4%', marginTop:'1%'}} onClick={() => { history.push("/pdftranslate") }}>
+                    <AddIcon /> Translate
+                </Button>
+
+                <div style={{marginLeft: '-4%', marginRight: '3%', marginTop: '40px'}}>
+                    <MUIDataTable title={"Documents"} data={this.state.translations} columns={columns} options={options}/>
+                </div>
+
+                {this.state.open && 
+                    <Dialog
+                        open={this.state.open}
+                        keepMounted
+                        onClose={this.handleClose}
+                        aria-labelledby="alert-dialog-slide-title"
+                        aria-describedby="alert-dialog-slide-description"
+                        >
+                        <DialogTitle id="alert-dialog-slide-title">
+                            Delete
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-slide-description">
+                            Are you sure you want to delete {this.state.filename} file?
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color="primary">No</Button>
+                            <Button onClick={(event) =>{this.handleClickOpen(file)}} color="primary">Yes</Button>
+                        </DialogActions>
+                    </Dialog> 
+                }
+
+                {this.state.snack && this.state.message &&
+                   <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={this.state.snack} onClose={this.handleClose}  autoHideDuration={3000} >
+                        <MySnackbarContentWrapper
+                            onClose={this.handleClose}
+                            variant="success"
+                            message= {this.state.message} />
+                    </Snackbar>
+                }
             </div>
 
         );
