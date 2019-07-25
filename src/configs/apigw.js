@@ -4,7 +4,7 @@ const configs = {
     LOGOUT_ENDPOINT: 'logout',
     POST_LOGOUT_URL:'returnTo='+window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : ''),
     RETURN_TO:'returnTo='+window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : '')+'/callback',
-    RESPONSE_TYPE: 'response_type=token',
+    RESPONSE_TYPE: 'response_type=token&scope=view',
     //Test
     // CLIENT_ID: 'client_id=6d810055-185e-4799-baba-c78693da6134',
     //Prod
