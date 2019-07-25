@@ -27,7 +27,7 @@ export default class Translation extends API {
     }
 
     apiEndPoint() {
-        return `${super.apiEndPointAuto()}/corpus/translate-docx`;
+        return `${super.apiEndPointAuto()}/app/translate-docx`;
     }
 
     getFormData() {
@@ -42,6 +42,7 @@ export default class Translation extends API {
     getHeaders() {
         return {
             headers: {
+                'Authorization': 'Bearer '+decodeURI(localStorage.getItem('token')), 
                 'Content-Type': 'multipart/form-data'
             }
         }

@@ -24,12 +24,13 @@ export default class FetchTranslations extends API {
     }
 
     apiEndPoint() {
-        return `${super.apiEndPointAuto()}/corpus/fetch-translation-process`
+        return `${super.apiEndPointAuto()}/app/fetch-translation-process`
     }
 
     getHeaders() {
         return {
             headers: {
+                'Authorization': 'Bearer '+decodeURI(localStorage.getItem('token')), 
                 "Content-Type": "application/json"
             }
         }
