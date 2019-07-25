@@ -91,7 +91,7 @@ handleChange = name => event => {
               <form method="post">
               <Typography style={{marginTop:'3%', marginBottom:'8%', fontSize:'24px'}}>Create New Account</Typography>
                 <FormControl fullWidth>
-                <TextField value={'first Name*'} id="outlined-required" onChange={(event) => {this.handleTextChange('firstname', event)}}
+                <TextField value={'First Name*'} id="outlined-required" onChange={(event) => {this.handleTextChange('firstname', event)}}
               margin="normal" varient="outlined" style={{width:'100%', marginBottom:'4%'}}
               />
                   
@@ -103,13 +103,13 @@ handleChange = name => event => {
                   
                 </FormControl>
                 <FormControl fullWidth>
-                <TextField value={"mail1*"} id="outlined-required" onChange={(event) => {this.handleTextChange('email1', event)}}
+                <TextField value={"Email*"} id="outlined-required" onChange={(event) => {this.handleTextChange('email', event)}}
               margin="normal" varient="outlined" style={{width:'100%', marginBottom:'4%'}}
               />
                   
                 </FormControl>
                 <FormControl fullWidth>
-                <TextField value={"password*"} id="outlined-required" type="password" onChange={(event) => {this.handleTextChange('password', event)}}
+                <TextField value={"Password*"} id="outlined-required" type="password" onChange={(event) => {this.handleTextChange('password', event)}}
               margin="normal" varient="outlined"  style={{width:'100%', marginBottom:'4%'}}
               />                </FormControl>
                 <div>
