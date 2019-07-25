@@ -48,8 +48,9 @@ class PdfTranslate extends React.Component {
     const apiObj = new PdfTranslation(this.state.sourceLanguage, this.state.targetLanguage, this.state.files);
     APITransport(apiObj);
     this.setState({showLoader:true})
+    console.log(this.state.showLoader)
     setTimeout(()=>{history.push("/viewtranslate")},12000)
-    
+    console.log(this.state.showLoader)
   }
 
  
@@ -98,7 +99,7 @@ class PdfTranslate extends React.Component {
 const mapStateToProps = state => ({
   user: state.login,
   apistatus: state.apistatus,
-  translate: state.translate
+  translation: state.translation
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
