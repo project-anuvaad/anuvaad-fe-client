@@ -7,7 +7,7 @@ import DeleteOutlinedIcon from '@material-ui/icons/VerticalAlignBottom';
 import ViewIcon from '@material-ui/icons/Visibility';
 import DeleteIcon from '@material-ui/icons/Delete';
 import APITransport from '../../../flux/actions/apitransport/apitransport';
-import FetchTranslations from "../../../flux/actions/apis/translate";
+import FetchTranslations from "../../../flux/actions/apis/fetchtranslation";
 import history from "../../../web.history";
 import AddIcon from '@material-ui/icons/Add';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -27,7 +27,7 @@ class ViewTranslate extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            translations: [],
+            fetchtranslation: [],
             apiCalled: false,
             hindi: [],
             english: [],
@@ -65,10 +65,10 @@ class ViewTranslate extends React.Component {
         const { APITransport } = this.props;
         const apiObj = new DeleteFile(basename);
         APITransport(apiObj);
-        this.setState({open: false,showLoader:true,message:this.state.filename+" file deleted successfully!"})
+        this.setState({open: false,showLoader:true})
         const apiObj1 = new FetchTranslations();
         APITransport(apiObj1)
-        this.setState({showLoader:true })
+        this.setState({showLoader:true,message:this.state.filename+" file deleted successfully!" })
         setTimeout(()=>{this.setState({snack:true })},700) 
         return false;
     };
@@ -78,8 +78,9 @@ class ViewTranslate extends React.Component {
     };
     
     componentDidUpdate(prevProps,nexpProps) {
-        if (prevProps.translations !== this.props.translations) {
-            this.setState({ translations: this.props.translations})
+        if (prevProps.fetchtranslation !== this.props.fetchtranslation) {
+            console.log("sfsejkhfjsefehds",this.props.fetchtranslation)
+            this.setState({ fetchtranslation: this.props.fetchtranslation})
         }
     }
 
@@ -148,7 +149,7 @@ class ViewTranslate extends React.Component {
                             return (
                                 <div style={{width:'120px'}}>
                                 {tableMeta.rowData[5] == 'COMPLETED' ? <a href={"http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename="+tableMeta.rowData[0]+'_t.docx'} target="_blank"><Tooltip title="Download"><DeleteOutlinedIcon style={{ width: "24", height: "24", marginRight:'8%',color: 'black'}} /></Tooltip></a> : ''}
-                                    {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%',marginRight:'8%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''} 
+                                     {tableMeta.rowData[5] == 'COMPLETED' ? <Tooltip title="View"><ViewIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%',marginRight:'8%' }} onClick={()=>{history.push('/view-doc/'+tableMeta.rowData[0])} } > </ViewIcon></Tooltip>: ''} 
                                 {tableMeta.rowData[5] == 'COMPLETED' ?<Tooltip title="Delete"><DeleteIcon style={{ width: "24", height: "24",cursor:'pointer', marginLeft:'10%' }} onClick={(event) =>{this.handleSubmit(tableMeta.rowData[0],tableMeta.rowData[1])}}  > </DeleteIcon></Tooltip>:''}
                                 </div>
                             );
@@ -176,7 +177,7 @@ class ViewTranslate extends React.Component {
                 </Button>
 
                 <div style={{marginLeft: '-4%', marginRight: '3%', marginTop: '40px'}}>
-                    <MUIDataTable title={"Documents"} data={this.state.translations} columns={columns} options={options}/>
+                    <MUIDataTable title={"Documents"} data={this.state.fetchtranslation} columns={columns} options={options}/>
                 </div>
 
                 {this.state.open && 
@@ -219,7 +220,7 @@ class ViewTranslate extends React.Component {
 const mapStateToProps = state => ({
     user: state.login,
     apistatus: state.apistatus,
-    translations: state.translations,
+    fetchtranslation: state.fetchtranslation,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
