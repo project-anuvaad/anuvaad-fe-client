@@ -12,6 +12,10 @@ class Callback extends React.Component {
                 console.log("sajish",localStorage.setItem('token', h.split('access_token=')[1]))
                 history.push("/viewtranslate")
             }
+            else if (h.indexOf('error') > 0) {
+                localStorage.removeItem('token')
+                history.push("/logout")
+            }
         })
     }
 
