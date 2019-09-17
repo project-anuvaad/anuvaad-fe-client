@@ -5,12 +5,13 @@ import API from "./api";
 import C from "../constants";
 
 export default class Translation extends API {
-    constructor(sourceLanguage, targetLanguage, files, timeout = 2000) {
+    constructor(sourceLanguage, targetLanguage, files,model, timeout = 2000) {
         super('POST', timeout, false, 'MULTIPART');
         this.type = C.TRANSLATION;
         this.files = files
         this.sourceLanguage = sourceLanguage
         this.targetLanguage = targetLanguage
+        this.model = JSON.stringify(model)
         this.pdf_translate={}
         
     }
@@ -31,11 +32,13 @@ export default class Translation extends API {
     }
 
     getFormData() {
+        console.log("-------",this.sourceLanguage,this.targetLanguage,this.files,this.model)
         const formData = new FormData();
 
             formData.append('sourceLang', this.sourceLanguage);
             formData.append('targetLang', this.targetLanguage);
             formData.append('file',this.files);
+            formData.append('model',this.model);
         return formData;
     }
 

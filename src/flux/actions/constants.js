@@ -11,8 +11,9 @@ const constants = {
     TRANSLATION: 'TRANSLATION',
     FETCH_TRANSLATIONS: 'FETCH_TRANSLATIONS',
     SIGNUP:'SIGNUP',
-    DELETE: 'DELETE'
-
+    DELETE: 'DELETE',
+    FETCH_LANGUAGE: 'FETCH_LANGUAGE',
+    FETCH_MODEL: 'FETCH_MODEL'
 };
 
 export default constants;
