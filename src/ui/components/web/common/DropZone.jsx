@@ -11,7 +11,7 @@ class DropZone extends Component{
       // <input type="file" accept=".docx" onChange={handleChange} />
       // </div>
       <DropzoneArea 
-        onDrop={handleChange} style={{marginTop:'20%'}} acceptedFiles={['.docx']} dropzoneText="Please Add/Drop docx file here" filesLimit={1}
+        onDrop={handleChange} maxFileSize={20000000} style={{marginTop:'20%'}} acceptedFiles={['.docx']} dropzoneText="Please Add/Drop docx file here" filesLimit={1}
         ></DropzoneArea>
     )  
   }

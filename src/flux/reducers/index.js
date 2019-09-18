@@ -3,8 +3,9 @@ import apistatus from './apistatus/apistatus';
 import translation from './translation';
 import fetchtranslation from './viewtranslate';
 import signup from './signup';
-
 import deletefile from './delete';
+import supportLanguage from './fetchlanguages';
+import langModel from './fetchmodel';
 
 export default {
     login,
@@ -12,6 +13,8 @@ export default {
     translation,
     fetchtranslation,
     signup,
-    deletefile
+    deletefile,
+    supportLanguage,
+    langModel
     
 };

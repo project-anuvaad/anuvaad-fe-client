@@ -25,13 +25,14 @@ class SimpleSelect extends React.Component {
               <Select
                 style={{minWidth: 120}}
                 value={value}
+                
                 onChange={handleChange}
                 input={
                   <OutlinedInput name={name} id={id} />
                 }
               >
                   {MenuItemValues.map((item) => (
-                        <MenuItem value={item}>{item}</MenuItem>
+                        <MenuItem  value={item}>{item.language_name}</MenuItem>
                   ))}
               </Select>
             </FormControl>
