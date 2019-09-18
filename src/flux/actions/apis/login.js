@@ -23,7 +23,6 @@ export default class LoginAPI extends API {
 
   processResponse(res) {
     super.processResponse(res);
-    console.log(res);
     if (res.token) {
       this.token = res.token;
       this.expires = res.expires;
@@ -69,7 +68,7 @@ export default class LoginAPI extends API {
 
   getCustomConfigs() {
     return {
-      
+
       auth: {
         username: CONFIGS.DEV_SALT,
         password: CONFIGS.DEV_PEPPER

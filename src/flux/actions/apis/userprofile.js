@@ -1,14 +1,14 @@
-import API from "./api";
 import C from "../constants";
+import API from "./api";
 
 export default class Translation extends API {
-    constructor(username="21d9047d-683c-48ab-a3d5-c427cc2ccb78", timeout = 2000) {
+    constructor(username = "21d9047d-683c-48ab-a3d5-c427cc2ccb78", timeout = 2000) {
         super('GET', timeout, false);
         this.type = C.USER_AUTH;
         this.username = "21d9047d-683c-48ab-a3d5-c427cc2ccb78"
-        
-        this.userDetails={}
-        
+
+        this.userDetails = {}
+
     }
 
     toString() {
@@ -23,7 +23,7 @@ export default class Translation extends API {
     }
 
     apiEndPoint() {
-        
+
         return `${super.apiEndPointAuto()}/app/get-profile`;
     }
 
@@ -34,14 +34,13 @@ export default class Translation extends API {
     getHeaders() {
         return {
             headers: {
-                'Authorization': 'Bearer '+decodeURI(localStorage.getItem('token')),
+                'Authorization': 'Bearer ' + decodeURI(localStorage.getItem('token')),
                 "Content-Type": "application/json",
             }
         }
     }
 
     getPayload() {
-        console.log("user Details-----",this.userDetails)
         return this.userDetails
     }
 

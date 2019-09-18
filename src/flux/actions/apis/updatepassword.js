@@ -1,7 +1,5 @@
 import API from "./api";
 import C from "../constants";
-import { CommunicationStayCurrentLandscape } from "material-ui/svg-icons";
-
 
 export default class UpdatePassword extends API {
     
@@ -12,9 +10,7 @@ export default class UpdatePassword extends API {
         this.old_password = old_password;
         this.user_name = user_name;
         this.new_password = new_password;
-        this.updatePassword=""
-        console.log("update password",this.user_id,this.old_password,this.user_name, this.new_password)
-        
+        this.updatePassword=""   
     }
 
     toString() {
@@ -27,14 +23,11 @@ export default class UpdatePassword extends API {
         
         super.processResponse(res)
         if (res) {
-            console.log("--777--",res)
             this.updatePassword = res;
         }
-        console.log("update-----",this.updatePassword)
     }
 
     apiEndPoint() {
-        console.log(this.user_id,this.old_password,this.user_name, this.new_password)
         return `${super.apiEndPointAuto()}/corpus/update-password`;
     }
 

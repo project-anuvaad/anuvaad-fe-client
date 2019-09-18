@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
@@ -24,14 +23,14 @@ export default class AlertDialog extends React.Component {
         }
     }
 
-    componentDidMount(){
-        
+    componentDidMount() {
+
     }
 
-    componentDidUpdate(prevProps){
-        if(prevProps.node != this.props.node){
+    componentDidUpdate(prevProps) {
+        if (prevProps.node !== this.props.node) {
             this.setState({
-                textValue : this.props.node.data
+                textValue: this.props.node.data
             })
         }
     }

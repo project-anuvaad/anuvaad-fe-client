@@ -72,11 +72,9 @@ export default function dispatchAPI(api) {
   else if (api.method === "POST") {
     return dispatch => {
       dispatch(apiStatusAsync(true, false, ""));
-      // console.log('api.apiEndPoint :: ', api.apiEndPoint());
       axios
         .post(api.apiEndPoint(), api.getBody(), api.getHeaders())
         .then(res => {
-          console.log(res)
           success(res, api, dispatch);
         })
         .catch(err => {
@@ -111,13 +109,10 @@ export default function dispatchAPI(api) {
     };
   }
   return dispatch => {
-    // console.log(api.apiEndPoint());
     dispatch(apiStatusAsync(true, false, ""));
-    console.log('1')
     axios
       .get(api.apiEndPoint(), api.getHeaders())
       .then(res => {
-        console.log(res)
         success(res, api, dispatch);
       })
       .catch(err => {

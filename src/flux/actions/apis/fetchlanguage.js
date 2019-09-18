@@ -6,11 +6,11 @@ import C from "../constants";
 
 
 export default class FetchLanguage extends API {
-    constructor( timeout = 200000) {
+    constructor(timeout = 200000) {
         super("GET", timeout, false);
         this.type = C.FETCH_LANGUAGE;
         this.fetch_language = null;
-        
+
     }
 
     toString() {
@@ -20,8 +20,6 @@ export default class FetchLanguage extends API {
     processResponse(res) {
         super.processResponse(res);
         this.fetch_language = res.data
-        
-       console.log(this.fetch_language)
     }
 
     apiEndPoint() {
@@ -41,7 +39,7 @@ export default class FetchLanguage extends API {
     }
 
     getPayload() {
-        
+
         return this.fetch_language
     }
 

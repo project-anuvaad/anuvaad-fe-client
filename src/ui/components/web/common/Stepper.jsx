@@ -1,22 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-
-
-
-
-
-
-
+import Stepper from '@material-ui/core/Stepper';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class HorizontalLabelPositionBelowStepper extends React.Component {
-  
-
-  
 
   render() {
     const { steps, activeStep, style, alternativeLabel } = this.props;
@@ -27,11 +15,11 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
           {steps.map(label => (
             <Step key={label}>
               <StepLabel StepIconProps={{
-      classes: { root: {color:"blue"} }
-    }}>{label}</StepLabel>
+                classes: { root: { color: "blue" } }
+              }}>{label}</StepLabel>
             </Step>
           ))}
-        </Stepper>       
+        </Stepper>
       </div>
     );
   }

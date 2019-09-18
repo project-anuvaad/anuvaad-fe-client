@@ -1,17 +1,11 @@
 // MyApp.js
-import React, { Component } from 'react';
-import Dialog from "../../components/web/common/Dialog";
-import { withRouter } from 'react-router-dom';
-import APITransport from '../../../flux/actions/apitransport/apitransport';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-
-var fs = require('fs');
-
-const file = 'input.docx'
-const type = 'docx'
+import APITransport from '../../../flux/actions/apitransport/apitransport';
+import Dialog from "../../components/web/common/Dialog";
 
 class ViewDocs extends Component {
     constructor(props) {
@@ -31,14 +25,14 @@ class ViewDocs extends Component {
         this.src.addEventListener("click", this.handleTextSelect.bind(this));
         this.tgt.addEventListener("click", this.handleTextSelect.bind(this));
         if (this.props.match.params.basename) {
-            this.setState({srcLoading: true, tgtLoading: true,basename: this.props.match.params.basename})
+            this.setState({ srcLoading: true, tgtLoading: true, basename: this.props.match.params.basename })
             this.loadDocx(this.props.match.params.basename)
             this.loadDocxTgt(this.props.match.params.basename)
         }
     }
 
     loadDocx(basename) {
-        fetch('http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename='+basename+'.docx', {
+        fetch('http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename=' + basename + '.docx', {
             method: 'GET'
         }).then(response => response.blob())
             .then(blob => {
@@ -54,7 +48,7 @@ class ViewDocs extends Component {
     }
 
     loadDocxTgt(basename) {
-        fetch('http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename='+basename+'_t.docx', {
+        fetch('http://nlp-nmt-160078446.us-west-2.elb.amazonaws.com/corpus/download-docx?filename=' + basename + '_t.docx', {
             method: 'GET'
         }).then(response => response.blob())
             .then(blob => {
@@ -91,8 +85,7 @@ class ViewDocs extends Component {
     }
 
     handleSaveDoc() {
-        var container = document.getElementById("doc-src");
-        console.log(container.innerHTML)
+        // var container = document.getElementById("doc-src");
         // this.Export2Doc(container)
         // let api = new HtmlToDoc(container.innerHTML)
         // this.props.APITransport(api)
@@ -104,7 +97,7 @@ class ViewDocs extends Component {
     render() {
         return (
             <div>
-                {this.state.srcLoading || this.state.tgtLoading ? <CircularProgress /> : null }
+                {this.state.srcLoading || this.state.tgtLoading ? <CircularProgress /> : null}
                 <Dialog open={this.state.dialogOpen} node={this.state.node} handleClick={this.handleDialogSave.bind(this)} />
                 <div id="doc-src" ref={elem => this.src = elem} style={{ width: '50%', display: 'inline-block' }}>
                 </div>

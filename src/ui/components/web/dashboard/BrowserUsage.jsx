@@ -1,10 +1,10 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
-import Avatar from "material-ui/Avatar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Paper from "@material-ui/core/Paper";
+import Avatar from "material-ui/Avatar";
 import { grey900 } from "material-ui/styles/colors";
+import React from "react";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 
 const BrowserUsage = props => {
   const styles = {

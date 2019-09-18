@@ -1,36 +1,27 @@
-import React from 'react';
+import { Button } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 // import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import SearchIcon from '@material-ui/icons/AddToQueue';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import SearchIcon from '@material-ui/icons/AddToQueue';
-import StarIcon from '@material-ui/icons/Star';
-import SvgIcon from '@material-ui/icons/Accessibility';
-import LaunchIcon from '@material-ui/icons/Launch';
 import SendIcon from '@material-ui/icons/Send';
-import MailIcon from '@material-ui/icons/Mail';
-import DeleteIcon from '@material-ui/icons/Delete';
-import ReportIcon from '@material-ui/icons/Report';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import classNames from 'classnames';
+import React from 'react';
 import history from "../../../../web.history";
-import { Button } from '@material-ui/core';
-import Fab from '@material-ui/core/Fab';
 
 const styles = {
 	root: {
@@ -38,7 +29,7 @@ const styles = {
 	},
 	flex: {
 		flex: 1,
-		marginLeft:'2%'
+		marginLeft: '2%'
 	}
 };
 
@@ -56,25 +47,25 @@ class Header extends React.Component {
 	};
 
 	handleDrawerTranslate = () => {
-		
-		this.setState({ 
+
+		this.setState({
 			open: false,
 			heading: 'Translation'
-		 });
+		});
 	};
 
 	handleDrawerDoc = () => {
-		
-		this.setState({ 
+
+		this.setState({
 			open: false,
 			heading: 'Documents'
-		 });
+		});
 	};
 	handleDrawerClose = () => {
-		
-		this.setState({ 
+
+		this.setState({
 			open: false
-		 });
+		});
 	};
 
 	handleChange = (event, checked) => {
@@ -88,15 +79,15 @@ class Header extends React.Component {
 	handleClose = () => {
 		this.setState({ anchorEl: null });
 	};
-	handleClick=()=>{
+	handleClick = () => {
 
 	}
 
 	render() {
-		const { classes, theme } = this.props;
+		const { classes } = this.props;
 		const { auth, anchorEl, open } = this.state;
 		const openEl = Boolean(anchorEl);
-		
+
 		return (
 			<div>
 				<AppBar position="fixed" className={classNames(classes.appBar, open && classes.appBarShift)}>
@@ -110,22 +101,22 @@ class Header extends React.Component {
 							<MenuIcon />
 						</IconButton> */}
 						<Typography variant="title" color="inherit" className={classes.flex}>
-						{this.state.heading}
+							{this.state.heading}
 						</Typography>
 						<Typography variant="title" color="inherit" style={{
-								position: 'absolute',
-								
-								textTransform:'capitalize',
-								right:'130px'
-							}}>
-						Welcome {this.state.name}
+							position: 'absolute',
+
+							textTransform: 'capitalize',
+							right: '130px'
+						}}>
+							Welcome {this.state.name}
 						</Typography>
 						{this.state.drawerClose}
 						{auth && (
 							<div style={{
 								position: 'absolute',
-								top:'10%',
-								right:'50px'
+								top: '10%',
+								right: '50px'
 							}}>
 								<Fab
 									aria-owns={openEl ? 'menu-appbar' : null}
@@ -133,9 +124,9 @@ class Header extends React.Component {
 									onClick={this.handleMenu}
 									color="primary"
 									size="medium">
-									<AccountCircle/>	
+									<AccountCircle />
 								</Fab>
-								
+
 								<Menu
 									id="menu-appbar"
 									anchorEl={anchorEl}
@@ -150,82 +141,82 @@ class Header extends React.Component {
 									open={openEl}
 									onClose={this.handleClose}
 								>
-									<MenuItem onClick={()=>{this.handleClose();history.push(`${process.env.PUBLIC_URL}/profile`)}}>My Profile</MenuItem>
-									<MenuItem onClick={()=>{this.handleClose();history.push(`${process.env.PUBLIC_URL}/logout`)}}>Logout</MenuItem>
+									<MenuItem onClick={() => { this.handleClose(); history.push(`${process.env.PUBLIC_URL}/profile`) }}>My Profile</MenuItem>
+									<MenuItem onClick={() => { this.handleClose(); history.push(`${process.env.PUBLIC_URL}/logout`) }}>Logout</MenuItem>
 								</Menu>
 							</div>
 						)}
 					</Toolbar>
 				</AppBar>
 				<div>
-            <Grid container spacing={24} style={{ padding: 24 }}>
-                {/* <Grid item xs={12} sm={12} lg={12} xl={12}>
+					<Grid container spacing={24} style={{ padding: 24 }}>
+						{/* <Grid item xs={12} sm={12} lg={12} xl={12}>
         <div style={{marginLeft:'-5%',marginTop:'-1%'}}>
         <AppBar />
         </div>
         </Grid> */}
-          {/* <Grid item xs={12} sm={12} lg={12} xl={12}> */}
-            {/* <div className={classes.root}>   */}
-			
-        <Drawer
-          color="inherit"
-          variant="persistent"
-          anchor="left"
-		  open={open}
-		  marginTop="10%"
-          
-          classes={{
-            paper: classes.drawerPaper
-          }}
-        >
+						{/* <Grid item xs={12} sm={12} lg={12} xl={12}> */}
+						{/* <div className={classes.root}>   */}
 
-				<List>
-					<ListItem >
-							
-							<ListItemText
-								disableTypography
-								primary={(
-									<Typography type="body2" style={{ color: '#FFFFFF', paddingBottom:'2%',marginLeft:'21%'}} variant="title" color="inherit" className={classes.flex}>
-										Anuvaad
-          							</Typography>
-								)}
-							/>
-						</ListItem>
-						<Divider />
-						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={(event)=>{this.handleDrawerClose();history.push("/pdftranslate")}}>
-							<ListItemIcon>
-							<SearchIcon style={{ color: 'white'}} />
-							</ListItemIcon>
-							<ListItemText
-								disableTypography
-								primary={(
-									<Typography type="body2" style={{ color: '#FFFFFF'}}>
-										Translate File
-          							</Typography>
-								)}
-							/>
-						</ListItem>
-						<ListItem style={{paddingTop:'8%',paddingBottom:'8%'}} button onClick={(event)=>{this.handleDrawerClose();history.push("/viewtranslate")}}>
-							<ListItemIcon>
-								<SendIcon style={{ color: 'white' }} />
-							</ListItemIcon>
-							<ListItemText
-								disableTypography
-								primary={(
-									<Typography type="body2" style={{ color: '#FFFFFF' }}>
-										Documents
-          							</Typography>
-								)}
-							/>
-						</ListItem>
+						<Drawer
+							color="inherit"
+							variant="persistent"
+							anchor="left"
+							open={open}
+							marginTop="10%"
 
-						<ListItem style={{paddingTop:'17%',paddingBottom:'17%',marginTop:'67%',marginLeft:'82%'}} button onClick={(event)=>{this.handleDrawerClose();}}>
-							<ListItemIcon>
-								<ChevronLeftIcon style={{ color: 'white'}} />
-							</ListItemIcon>
-						</ListItem>
-						</List>
-          {/* <List>
+							classes={{
+								paper: classes.drawerPaper
+							}}
+						>
+
+							<List>
+								<ListItem >
+
+									<ListItemText
+										disableTypography
+										primary={(
+											<Typography type="body2" style={{ color: '#FFFFFF', paddingBottom: '2%', marginLeft: '21%' }} variant="title" color="inherit" className={classes.flex}>
+												Anuvaad
+          							</Typography>
+										)}
+									/>
+								</ListItem>
+								<Divider />
+								<ListItem style={{ paddingTop: '8%', paddingBottom: '8%' }} button onClick={(event) => { this.handleDrawerClose(); history.push("/pdftranslate") }}>
+									<ListItemIcon>
+										<SearchIcon style={{ color: 'white' }} />
+									</ListItemIcon>
+									<ListItemText
+										disableTypography
+										primary={(
+											<Typography type="body2" style={{ color: '#FFFFFF' }}>
+												Translate File
+          							</Typography>
+										)}
+									/>
+								</ListItem>
+								<ListItem style={{ paddingTop: '8%', paddingBottom: '8%' }} button onClick={(event) => { this.handleDrawerClose(); history.push("/viewtranslate") }}>
+									<ListItemIcon>
+										<SendIcon style={{ color: 'white' }} />
+									</ListItemIcon>
+									<ListItemText
+										disableTypography
+										primary={(
+											<Typography type="body2" style={{ color: '#FFFFFF' }}>
+												Documents
+          							</Typography>
+										)}
+									/>
+								</ListItem>
+
+								<ListItem style={{ paddingTop: '17%', paddingBottom: '17%', marginTop: '67%', marginLeft: '82%' }} button onClick={(event) => { this.handleDrawerClose(); }}>
+									<ListItemIcon>
+										<ChevronLeftIcon style={{ color: 'white' }} />
+									</ListItemIcon>
+								</ListItem>
+							</List>
+							{/* <List>
             {["Components"].map((text, index) => (
               <ListItem button >
                 <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>{text}</Typography>} />
@@ -240,38 +231,38 @@ class Header extends React.Component {
               </ListItem>
             ))}
 		  </List> */}
-		  
 
-        </Drawer>
-			
-        <main
-          className={classNames(classes.content, {
-            [classes.contentShift]: open
-          })}
-        >
-          {this.state.open ? '' : (
-            <Button
-            color='primary'
-            variant="contained"
-            className={classes.buttonRight}
-              
-              
-              
-              onClick={this.handleDrawerOpen}
-            >
-                <ChevronRightIcon/>
-              
-            </Button>
-          )}
-          <div className={classes.drawerHeader} />
 
-          
-        </main>
-      {/* </div> */}
-      {/* </Grid> */}
-      </Grid>
-      </div>
-    
+						</Drawer>
+
+						<main
+							className={classNames(classes.content, {
+								[classes.contentShift]: open
+							})}
+						>
+							{this.state.open ? '' : (
+								<Button
+									color='primary'
+									variant="contained"
+									className={classes.buttonRight}
+
+
+
+									onClick={this.handleDrawerOpen}
+								>
+									<ChevronRightIcon />
+
+								</Button>
+							)}
+							<div className={classes.drawerHeader} />
+
+
+						</main>
+						{/* </div> */}
+						{/* </Grid> */}
+					</Grid>
+				</div>
+
 			</div>
 		);
 	}

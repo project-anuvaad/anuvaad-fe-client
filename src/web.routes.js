@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Redirect, Switch, Router } from "react-router-dom";
 
 import { connect } from "react-redux";
-import Login from "./ui/containers/web/Login";
 import Home from "./ui/containers/web/Home";
 import Callback from "./ui/containers/web/Callback";
 import SignUp from "./ui/containers/web/SignUp";
@@ -23,7 +22,6 @@ const PrivateRoute = ({ component: Component, authenticate, ...rest }) => (
 class AppRoutes extends React.Component {
   authenticateUser = () => {
     const token = localStorage.getItem("token");
-    console.log(token)
     if (token) {
       return true;
     }

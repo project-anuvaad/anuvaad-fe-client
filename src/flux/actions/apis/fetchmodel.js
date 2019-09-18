@@ -6,11 +6,11 @@ import C from "../constants";
 
 
 export default class FetchModel extends API {
-    constructor( timeout = 200000) {
+    constructor(timeout = 200000) {
         super("GET", timeout, false);
         this.type = C.FETCH_MODEL;
         this.fetch_model = null;
-        
+
     }
 
     toString() {
@@ -20,8 +20,6 @@ export default class FetchModel extends API {
     processResponse(res) {
         super.processResponse(res);
         this.fetch_model = res.data
-        
-       console.log("test-----",this.fetch_model)
     }
 
     apiEndPoint() {
@@ -41,7 +39,7 @@ export default class FetchModel extends API {
     }
 
     getPayload() {
-        
+
         return this.fetch_model
     }
 

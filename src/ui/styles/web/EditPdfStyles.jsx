@@ -1,16 +1,11 @@
-import { grey500, white } from 'material-ui/styles/colors';
+
 const drawerWidth = 240;
 const PdfStyles = theme => ({
 
 root: {
     display: "flex"
   },
-  appBar: {
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
+  
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
