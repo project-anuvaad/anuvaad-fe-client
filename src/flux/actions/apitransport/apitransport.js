@@ -44,11 +44,10 @@ function success(res, api, dispatch) {
 
 function error(err, api, dispatch) {
   let errorMsg = err.response && (Strings.error.message.http[err.response.status] || Strings.error.message.http.default);
-  console.log(err.response.status)
   if (api.errorMsg || api.errorMsg === null) {
     errorMsg = api.errorMsg === null ? "" : api.errorMsg;
   }
-  dispatch(apiStatusAsync(false, true, errorMsg,null, err.response.status === 401 ? true : false));
+  dispatch(apiStatusAsync(false, true, errorMsg,null, err.response && err.response.status === 401 ? true : false));
   if (typeof api.processNextErrorStep === "function") {
     api.processNextErrorStep();
   }
