@@ -116,7 +116,7 @@ class ViewTranslate extends React.Component {
                 label: "Source Language",
                 options: {
                     filter: true,
-                    sort: false,
+                    sort: true,
                 }
             },
 
@@ -125,7 +125,7 @@ class ViewTranslate extends React.Component {
                 label: "Target Language",
                 options: {
                     filter: true,
-                    sort: false,
+                    sort: true,
                 }
             },
 
