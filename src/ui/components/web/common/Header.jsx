@@ -30,7 +30,7 @@ import ReportIcon from '@material-ui/icons/Report';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import history from "../../../../web.history";
 import { Button } from '@material-ui/core';
-
+import Fab from '@material-ui/core/Fab';
 
 const styles = {
 	root: {
@@ -47,8 +47,8 @@ class Header extends React.Component {
 		open: false,
 		auth: true,
 		anchorEl: null,
+		name: localStorage.getItem('userDetails'),
 		heading: 'Translation'
-
 	};
 
 	handleDrawerOpen = () => {
@@ -112,22 +112,30 @@ class Header extends React.Component {
 						<Typography variant="title" color="inherit" className={classes.flex}>
 						{this.state.heading}
 						</Typography>
+						<Typography variant="title" color="inherit" style={{
+								position: 'absolute',
+								
+								textTransform:'capitalize',
+								right:'130px'
+							}}>
+						Welcome {this.state.name}
+						</Typography>
 						{this.state.drawerClose}
 						{auth && (
 							<div style={{
 								position: 'absolute',
-								right: '0',
 								top:'10%',
-								right:'35px'
+								right:'50px'
 							}}>
-								<IconButton
+								<Fab
 									aria-owns={openEl ? 'menu-appbar' : null}
 									aria-haspopup="true"
 									onClick={this.handleMenu}
-									color="inherit"
-								>
-									<AccountCircle/>
-								</IconButton>
+									color="primary"
+									size="medium">
+									<AccountCircle/>	
+								</Fab>
+								
 								<Menu
 									id="menu-appbar"
 									anchorEl={anchorEl}
@@ -142,7 +150,8 @@ class Header extends React.Component {
 									open={openEl}
 									onClose={this.handleClose}
 								>
-									<MenuItem onClick={()=>{this.handleClose();history.push("/logout")}}>Logout</MenuItem>
+									<MenuItem onClick={()=>{this.handleClose();history.push(`${process.env.PUBLIC_URL}/profile`)}}>My Profile</MenuItem>
+									<MenuItem onClick={()=>{this.handleClose();history.push(`${process.env.PUBLIC_URL}/logout`)}}>Logout</MenuItem>
 								</Menu>
 							</div>
 						)}

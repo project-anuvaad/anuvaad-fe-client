@@ -6,6 +6,8 @@ import signup from './signup';
 import deletefile from './delete';
 import supportLanguage from './fetchlanguages';
 import langModel from './fetchmodel';
+import userProfile from './userprofile';
+import updatePasswordstatus from './updatepassword';
 
 export default {
     login,
@@ -15,6 +17,8 @@ export default {
     signup,
     deletefile,
     supportLanguage,
-    langModel
+    langModel,
+    userProfile,
+    updatePasswordstatus
     
 };
