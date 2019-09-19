@@ -13,6 +13,7 @@ import DropZone from '../../components/web/common/DropZone';
 import Paper from '../../components/web/common/Paper';
 import Select from '../../components/web/common/Select';
 import Typography from '../../components/web/common/Typography';
+import { white, blueGrey50,darkBlack } from "material-ui/styles/colors"
 
 
 class PdfTranslate extends React.Component {
@@ -121,12 +122,12 @@ class PdfTranslate extends React.Component {
         <Paper value={
           <div>
 
-            <Typography value='Translate docx file from source to target language' variant="h5" gutterBottom="true" style={{ marginLeft: '12%', paddingTop: '3%', marginBottom: '3%' }} />
-            <Divider style={{ marginBottom: '4%' }} />
+            <Typography value='Document Translator' variant="h5" gutterBottom="true" style={{ paddingLeft: '30%', paddingTop: '3%', paddingBottom: '4%', background:blueGrey50, marginBottom:'3%'}} />
+           
             <Grid container spacing={4} >
               <DropZone handleChange={this.handleChange} />
               <Grid item xs={8} sm={8} lg={8} xl={8}>
-                <Typography value='Please select source language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '8%' }} />
+                <Typography value='Please select source language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '11%' }} />
               </Grid>
               <Grid item xs={3} sm={3} lg={4} xl={4}><br /><br />
                 <Select id={"outlined-age-simple"} MenuItemValues={this.handleSource(this.state.modelLanguage, this.state.language)} handleChange={this.handleSelectChange} value={this.state.source} name="source" style={{ marginRight: '30%', marginBottom: '5%', marginTop: '4%' }} />
@@ -142,9 +143,9 @@ class PdfTranslate extends React.Component {
             </Grid>
 
 
-            <Button value={"Submit"} color={'secondary'} variant={"contained"} dis={this.state.target.language_code && this.state.source.language_code && this.state.files.name ? false : true} onClick={this.handleSubmit} style={{ marginTop: '2%', width: '100%' }} />
+            <Button value={"Submit"} color={'secondary'} variant={"contained"} dis={this.state.target.language_code && this.state.source.language_code && this.state.files.name ? false : true} onClick={this.handleSubmit} style={{ width: '100%' }} />
             {/* }}  */}
-          </div>} style={{ width: '50%', marginLeft: '18%', marginTop: '2%', paddingBottom: '1%', minWidth: '400px' }}
+          </div>} style={{ width: '40%', marginLeft: '26%', marginTop: '2%', paddingBottom: '1%', minWidth: '400px' }}
         />
       </div>
 

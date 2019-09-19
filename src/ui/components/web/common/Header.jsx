@@ -15,7 +15,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import SearchIcon from '@material-ui/icons/AddToQueue';
+import TranslateIcon from '@material-ui/icons/Translate';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SendIcon from '@material-ui/icons/Send';
@@ -185,7 +185,7 @@ class Header extends React.Component {
 								<Divider />
 								<ListItem style={{ paddingTop: '8%', paddingBottom: '8%' }} button onClick={(event) => { this.handleDrawerClose(); history.push("/pdftranslate") }}>
 									<ListItemIcon>
-										<SearchIcon style={{ color: 'white' }} />
+										<TranslateIcon style={{ color: 'white' }} />
 									</ListItemIcon>
 									<ListItemText
 										disableTypography
