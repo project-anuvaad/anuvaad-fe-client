@@ -40,9 +40,6 @@ const GlobalStyles = theme => ({
     marginRight: 36
 
   },
-  hide: {
-    display: 'none'
-  },
   drawerPaper: {
     backgroundColor: theme.drawer.default,
     whiteSpace: 'nowrap',

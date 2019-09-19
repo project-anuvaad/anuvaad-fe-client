@@ -9,9 +9,9 @@ export default class Translation extends API {
         super('POST', timeout, false, 'MULTIPART');
         this.type = C.DELETE;
         this.deleteFile = deleteFile
-        
-        this.pdf_translate={}
-        
+
+        this.pdf_translate = {}
+
     }
 
     toString() {
@@ -30,9 +30,8 @@ export default class Translation extends API {
     }
 
     getFormData() {
-        console.log(this.files)
         const formData = new FormData();
-            formData.append('processname',this.deleteFile);
+        formData.append('processname', this.deleteFile);
         return formData;
     }
 

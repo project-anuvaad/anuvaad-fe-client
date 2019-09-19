@@ -1,12 +1,12 @@
 import React from "react";
-import CONFIG from '../../../configs/apigw'
+import CONFIG from '../../../configs/apigw';
 
 class Logout extends React.Component {
 
-    componentDidMount(){
-        localStorage.removeItem('token')
-        window.location.href = CONFIG.BASE_URL+CONFIG.LOGOUT_ENDPOINT+'?'+CONFIG.POST_LOGOUT_URL
-    }
+  componentDidMount() {
+    localStorage.removeItem('token')
+    window.location.href = CONFIG.BASE_URL + CONFIG.LOGOUT_ENDPOINT + '?' + CONFIG.POST_LOGOUT_URL
+  }
 
   render() {
     return (

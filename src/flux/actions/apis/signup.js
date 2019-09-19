@@ -12,8 +12,8 @@ export default class Signup extends API {
         this.lastname = lastname
         this.email = email
         this.password = password
-        this.response={}
-        
+        this.response = {}
+
     }
 
     toString() {
@@ -32,13 +32,13 @@ export default class Signup extends API {
     }
 
     getFormData() {
-        
+
         const formData = new FormData();
 
-            formData.append('firstname', this.firstname);
-            formData.append('lastname', this.lastname);
-            formData.append('email',this.email);
-            formData.append('password',this.password);
+        formData.append('firstname', this.firstname);
+        formData.append('lastname', this.lastname);
+        formData.append('email', this.email);
+        formData.append('password', this.password);
 
         return formData;
     }

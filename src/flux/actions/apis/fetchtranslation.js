@@ -16,7 +16,6 @@ export default class FetchTranslations extends API {
     }
 
     processResponse(res) {
-        console.log("response---",res)
         super.processResponse(res)
         if (res.data) {
             this.translations = res.data;
@@ -30,7 +29,7 @@ export default class FetchTranslations extends API {
     getHeaders() {
         return {
             headers: {
-                'Authorization': 'Bearer '+decodeURI(localStorage.getItem('token')), 
+                'Authorization': 'Bearer ' + decodeURI(localStorage.getItem('token')),
                 "Content-Type": "application/json"
             }
         }

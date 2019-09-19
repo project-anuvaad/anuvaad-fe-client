@@ -1,14 +1,14 @@
+import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import React from "react";
-import { withStyles, MuiThemeProvider } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import APITransport from "../../../flux/actions/apitransport/apitransport";
+import history from "../../../web.history";
 import Header from "../../components/web/common/Header";
 import Spinner from "../../components/web/common/Spinner";
 import GlobalStyles from "../../styles/web/styles";
 // import Theme from "../../theme/web/theme-red";
 import Theme from '../../theme/web/theme-default';
-import APITransport from "../../../flux/actions/apitransport/apitransport";
-import history from "../../../web.history";
 
 
 class App extends React.Component {
@@ -18,9 +18,9 @@ class App extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps){
-    if(prevProps.apistatus !== this.props.apistatus){
-      if(this.props.apistatus.unauthrized){
+  componentDidUpdate(prevProps) {
+    if (prevProps.apistatus !== this.props.apistatus) {
+      if (this.props.apistatus.unauthrized) {
         history.push("/logout")
       }
     }
@@ -32,7 +32,7 @@ class App extends React.Component {
     return (
       <MuiThemeProvider theme={Theme}>
         <div className={classes.root}>
-        {this.renderSpinner()}
+          {this.renderSpinner()}
           <Header classes={classes} theme={theme} />
           <div className={classes.container}>
             <Component />

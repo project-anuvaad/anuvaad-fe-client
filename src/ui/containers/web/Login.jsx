@@ -1,30 +1,27 @@
-import React from "react";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import { withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import Paper from "@material-ui/core/Paper";
+import { Typography, withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Input from "@material-ui/core/Input";
 import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Grid from '@material-ui/core/Grid';
 // import {Link} from 'react-router';
 import Link from '@material-ui/core/Link';
-
+import Paper from "@material-ui/core/Paper";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
-import { withStyles, Typography } from "@material-ui/core";
-import ThemeDefault from "../../theme/web/theme-default";
-
-import LoginStyles from "../../styles/web/LoginStyles";
-
 import LoginAPI from "../../../flux/actions/apis/login";
 import APITransport from "../../../flux/actions/apitransport/apitransport";
 import history from "../../../web.history";
 import TextField from '../../components/web/common/TextField';
-import SignUp from './SignUp';
-import Grid from '@material-ui/core/Grid';
+import LoginStyles from "../../styles/web/LoginStyles";
+import ThemeDefault from "../../theme/web/theme-default";
+
+
+
 class Login extends React.Component {
   constructor(props) {
     super(props);

@@ -22,10 +22,6 @@ return(
           anchor={anchor}
           open={open}
           styles={classes}
-
-          {componentList}
-          
-          
         >
           <List>
             {componentList.map((text, index) => (

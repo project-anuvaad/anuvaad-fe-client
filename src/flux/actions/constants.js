@@ -13,7 +13,9 @@ const constants = {
     SIGNUP:'SIGNUP',
     DELETE: 'DELETE',
     FETCH_LANGUAGE: 'FETCH_LANGUAGE',
-    FETCH_MODEL: 'FETCH_MODEL'
+    FETCH_MODEL: 'FETCH_MODEL',
+    USER_AUTH: 'USER_AUTH',
+    UPDATE_PASSWORD:'UPDATE_PASSWORD',
 };
 
 export default constants;
