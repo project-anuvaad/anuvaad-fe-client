@@ -6,7 +6,7 @@ export default function (state = {}, action) {
                 if(action.payload && Array.isArray(action.payload)){
                     action.payload.map((t)=>{
                         var myDate = new Date(t.created_on + ' GMT');
-                        t.created_on = (myDate.toLocaleString('en-US', {day:'numeric',month:'numeric',year:'numeric', hour: 'numeric', minute: 'numeric',second:'numeric', hour12: false }))   
+                        t.created_on = (myDate.toLocaleString('en-US', {month:'2-digit',day:'2-digit',year:'numeric', hour: 'numeric', minute: 'numeric',second:'numeric', hour12: false }))
                     })
                 }
             return action.payload;
