@@ -22,6 +22,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
     APITransport
 }, dispatch);
-
-
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));

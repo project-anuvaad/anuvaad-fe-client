@@ -19,7 +19,7 @@ import FetchTranslations from "../../../flux/actions/apis/fetchtranslation";
 import APITransport from '../../../flux/actions/apitransport/apitransport';
 import history from "../../../web.history";
 import MySnackbarContentWrapper from "../../components/web/common/Snackbar";
-
+import Fab from '@material-ui/core/Fab';
 
 var file = "";
 class ViewTranslate extends React.Component {
@@ -171,9 +171,9 @@ class ViewTranslate extends React.Component {
         return (
             <div>
 
-                <Button variant="extendedFab" color="secondary" aria-label="Add" style={{ marginLeft: '-4%', marginTop: '1%' }} onClick={() => { history.push("/pdftranslate") }}>
+                <Fab variant="extended" color="secondary" aria-label="Add" style={{ marginLeft: '-4%', marginTop: '1%' }} onClick={() => { history.push("/pdftranslate") }}>
                     <AddIcon /> Translate
-                </Button>
+                </Fab>
 
                 <div style={{ marginLeft: '-4%', marginRight: '3%', marginTop: '40px' }}>
                     <MUIDataTable title={"Documents"} data={this.state.fetchtranslation} columns={columns} options={options} />
