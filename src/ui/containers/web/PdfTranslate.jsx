@@ -76,7 +76,7 @@ class PdfTranslate extends React.Component {
       const apiObj = new PdfTranslation(this.state.source.language_name, this.state.target.language_name, this.state.files, model);
       APITransport(apiObj);
       this.setState({ showLoader: true })
-      setTimeout(() => { history.push("/viewtranslate") }, 12000)
+      setTimeout(() => { history.push("/viewtranslate") }, 2500)
     }
   }
 
