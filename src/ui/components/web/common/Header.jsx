@@ -10,7 +10,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-// import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -92,14 +91,6 @@ class Header extends React.Component {
 			<div>
 				<AppBar position="fixed" className={classNames(classes.appBar, open && classes.appBarShift)}>
 					<Toolbar disableGutters={!open}>
-						{/* <IconButton
-							color="inherit"
-							aria-label="open drawer"
-							onClick={this.handleDrawerOpen}
-							className={classNames(classes.menuButton, open && classes.hide)}
-						>
-							<MenuIcon />
-						</IconButton> */}
 						<Typography variant="title" color="inherit" className={classes.flex}>
 							{this.state.heading}
 						</Typography>
@@ -150,26 +141,14 @@ class Header extends React.Component {
 				</AppBar>
 				<div>
 					<Grid container spacing={24} style={{ padding: 24 }}>
-						{/* <Grid item xs={12} sm={12} lg={12} xl={12}>
-        <div style={{marginLeft:'-5%',marginTop:'-1%'}}>
-        <AppBar />
-        </div>
-        </Grid> */}
-						{/* <Grid item xs={12} sm={12} lg={12} xl={12}> */}
-						{/* <div className={classes.root}>   */}
-
 						<Drawer
 							color="inherit"
 							variant="persistent"
 							anchor="left"
 							open={open}
-							marginTop="10%"
-
 							classes={{
 								paper: classes.drawerPaper
-							}}
-						>
-
+							}}>
 							<List>
 								<ListItem >
 
@@ -210,56 +189,28 @@ class Header extends React.Component {
 									/>
 								</ListItem>
 
-								<ListItem style={{ paddingTop: '17%', paddingBottom: '17%', marginTop: '67%', marginLeft: '82%' }} button onClick={(event) => { this.handleDrawerClose(); }}>
+								<ListItem style={{ paddingTop: '17%', paddingBottom: '17%', marginTop: '67%', marginLeft: '82%' ,width:'18%'}} button onClick={(event) => { this.handleDrawerClose(); }}>
 									<ListItemIcon>
 										<ChevronLeftIcon style={{ color: 'white' }} />
 									</ListItemIcon>
 								</ListItem>
 							</List>
-							{/* <List>
-            {["Components"].map((text, index) => (
-              <ListItem button >
-                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>{text}</Typography>} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List >
-            {["1.Header Image (NA)", "2.Header Text", "3.Title", "4.List Items", "5.Paragraph"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemText primary={<Typography type="body2" style={{ color: '#FFFFFF' }}>{text}</Typography>}/>
-              </ListItem>
-            ))}
-		  </List> */}
-
-
-						</Drawer>
-
+					</Drawer>
 						<main
 							className={classNames(classes.content, {
 								[classes.contentShift]: open
-							})}
-						>
+							})}>
 							{this.state.open ? '' : (
 								<Button
 									color='primary'
 									variant="contained"
 									className={classes.buttonRight}
-
-
-
-									onClick={this.handleDrawerOpen}
-								>
+									onClick={this.handleDrawerOpen}>
 									<ChevronRightIcon />
-
 								</Button>
 							)}
 							<div className={classes.drawerHeader} />
-
-
 						</main>
-						{/* </div> */}
-						{/* </Grid> */}
 					</Grid>
 				</div>
 
@@ -267,10 +218,5 @@ class Header extends React.Component {
 		);
 	}
 }
-
-// Header.propTypes = {
-//   classes: PropTypes.object.isRequired,
-//   theme: PropTypes.object.isRequired,
-// };
 
 export default withStyles(styles)(Header);

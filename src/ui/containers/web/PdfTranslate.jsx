@@ -29,7 +29,6 @@ class PdfTranslate extends React.Component {
   };
 
   componentDidMount() {
-
     const { APITransport } = this.props;
     const apiObj = new FetchLanguage();
     APITransport(apiObj);
@@ -97,6 +96,7 @@ class PdfTranslate extends React.Component {
 
   handleTarget(modelLanguage, supportLanguage, sourceLanguage) {
     var result = [];
+    console.log("model",modelLanguage)
     if (modelLanguage && supportLanguage) {
       modelLanguage.map((item) => {
       item.source_language_code === sourceLanguage ?
@@ -108,13 +108,10 @@ class PdfTranslate extends React.Component {
     }
     var value = new Set(result);
     var target_language = [...value]
+    
     return target_language;
 
   }
-
-
-
-
   render() {
 
     return (
@@ -127,7 +124,7 @@ class PdfTranslate extends React.Component {
             <Grid container spacing={4} >
               <DropZone handleChange={this.handleChange} />
               <Grid item xs={8} sm={8} lg={8} xl={8}>
-                <Typography value='Please select source language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '11%' }} />
+                <Typography value='Select source language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '48px' }} />
               </Grid>
               <Grid item xs={3} sm={3} lg={4} xl={4}><br /><br />
                 <Select id={"outlined-age-simple"} MenuItemValues={this.handleSource(this.state.modelLanguage, this.state.language)} handleChange={this.handleSelectChange} value={this.state.source} name="source" style={{ marginRight: '30%', marginBottom: '5%', marginTop: '4%' }} />
@@ -135,8 +132,8 @@ class PdfTranslate extends React.Component {
             </Grid><br /><br />
             <Grid container spacing={2}>
               <Grid item xs={8} sm={8} lg={8} xl={8}>
-                <Typography value='Please select target language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '3%', marginBottom: '15%' }} /><br />
-              </Grid>
+                <Typography value='Select target language' variant="title" gutterBottom="true" style={{ marginLeft: '22%', paddingTop: '13                                                                         px', marginBottom: '15%' }} /><br />
+              </Grid>                  
               <Grid item xs={3} sm={3} lg={3} xl={3}>
                 <Select id={"outlined-age-simple"} MenuItemValues={this.state.source.language_code ? this.handleTarget(this.state.modelLanguage, this.state.language, this.state.source.language_code) : []} handleChange={this.handleSelectChange} value={this.state.target} name="target" style={{ minWidth: 120, marginLeft: '10%', marginTop: '30' }} />
               </Grid>
@@ -145,7 +142,7 @@ class PdfTranslate extends React.Component {
 
             <Button value={"Submit"} color={'secondary'} variant={"contained"} dis={this.state.target.language_code && this.state.source.language_code && this.state.files.name ? false : true} onClick={this.handleSubmit} style={{ width: '100%' }} />
             {/* }}  */}
-          </div>} style={{ width: '40%', marginLeft: '26%', marginTop: '2%', paddingBottom: '1%', minWidth: '400px' }}
+          </div>} style={{ width: '40%', marginLeft: '26%', marginTop: '2%', paddingBottom: '1%', minWidth: '450px' }}
         />
       </div>
 
@@ -165,6 +162,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   APITransport,
   PdfTranslation: APITransport,
 }, dispatch);
-
-
 export default (connect(mapStateToProps, mapDispatchToProps)(PdfTranslate));
