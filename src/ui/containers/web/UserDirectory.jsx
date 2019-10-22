@@ -186,7 +186,7 @@ class UserDirectory extends React.Component {
                         return (
                             <div >
 
-<Button variant="contained"  onClick={(event) => { this.handleSubmit(tableMeta.rowData[0], tableMeta.rowData[1], tableMeta.rowData[7] ? "DELETE":"ACTIVE" )}} color={tableMeta.rowData[7] ? "":'primary'} aria-label="edit" style={{ width: '60%',marginLeft:'-13%', marginBottom: '4%', marginTop: '4%' }}>
+<Button variant="contained"  onClick={(event) => { this.handleSubmit(tableMeta.rowData[0], tableMeta.rowData[1], tableMeta.rowData[7] ? "DELETE":"ACTIVE" )}} color={tableMeta.rowData[7] ? "":'primary'} aria-label="edit" style={{ width: '170px',marginLeft:'-13%', marginBottom: '4%', marginTop: '4%' }}>
 {tableMeta.rowData[7] ?  "Deactivate": "Activate" }
                 </Button>
                               </div>   
