@@ -14,18 +14,39 @@ import history from "./web.history";
 import Translate from "./ui/containers/web/PdfTranslate";
 import EditTranslate from "./ui/containers/web/EditTranslate";
 import ViewTranslate from "./ui/containers/web/ViewTranslate";
+import UserDirectory from "./ui/containers/web/UserDirectory";
 import ViewDoc from "./ui/containers/web/ViewDoc";
-const PrivateRoute = ({ component: Component, authenticate, ...rest }) => (
-  <Route {...rest} render={props => (authenticate() ? <Layout component={Component} {...props} /> : <Redirect to={{ pathname: "/" }} />)} />
+const PrivateRoute = ({ component: Component, userRoles, authenticate, ...rest }) => (
+  <Route {...rest} render={props => (authenticate(userRoles) ? <Layout component={Component} {...props} /> :  <Redirect to={`${process.env.PUBLIC_URL}/logout`} />)} />
 );
 
 class AppRoutes extends React.Component {
-  authenticateUser = () => {
+  authenticateUser = (allowedRoles) => {
+    let count = 0;
     const token = localStorage.getItem("token");
+    if(localStorage.getItem("roles")){
+    const userRoles = JSON.parse(localStorage.getItem("roles"))
     if (token) {
-      return true;
+      if (allowedRoles && Array.isArray(allowedRoles)) {
+        allowedRoles.map((allowedRole) => {
+          userRoles.map((userRole) => {
+            if (userRole == allowedRole) {
+              count = count + 1
+            }
+          })
+        })
+        if (count > 0) {
+          return true;
+        }
+      }
+      else {
+        return true;
+      }
     }
     return false;
+  }else{
+    alert('Something Went wrong. Please try again')
+  }
   }
 
   render() {
@@ -38,6 +59,7 @@ class AppRoutes extends React.Component {
             <Route exact path="/logout" component={Logout} />
             <PrivateRoute path='/profile' title="Profile" component={UserProfile} authenticate={this.authenticateUser} />
             <PrivateRoute path="/pdftranslate" component={Translate} authenticate={this.authenticateUser} />
+            <PrivateRoute path="/userdirectory" component={UserDirectory} userRoles={['admin']} authenticate={this.authenticateUser} />
             <PrivateRoute path="/edittranslate" component={EditTranslate} authenticate={this.authenticateUser} />
             <PrivateRoute path="/viewtranslate" component={ViewTranslate} authenticate={this.authenticateUser} />
             <PrivateRoute path="/view-doc/:basename" component={ViewDoc} authenticate={this.authenticateUser} />
