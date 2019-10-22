@@ -7,9 +7,26 @@ import history from "../../../web.history";
 
 class Callback extends React.Component {
 
+    componentDidUpdate(prevProps){
+        if(prevProps.userProfile !==this.props.userProfile){
+            if (this.props.userProfile.isActive) {
+                localStorage.setItem('userDetails', this.props.userProfile.firstname + ' ' + this.props.userProfile.lastname)
+                localStorage.setItem('userProfile', JSON.stringify(this.props.userProfile))
+                if (this.props.userProfile.roles === null) {
+                  localStorage.setItem("roles", JSON.stringify(["editor"]))
+                }
+                else {
+                  console.log("role",this.props.userProfile.roles)
+                  localStorage.setItem("roles", JSON.stringify(this.props.userProfile.roles))
+                }
+                history.push(`${process.env.PUBLIC_URL}/viewtranslate`)
+              }
+        }
+    }
+
     componentDidMount() {
         let hash = this.props.location.hash.split('&')
-
+        console.log("hash",hash)
         hash.map((h) => {
             if (h.indexOf('access_token') > 0) {
                 localStorage.setItem('token', h.split('access_token=')[1])
@@ -24,15 +41,6 @@ class Callback extends React.Component {
         })
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.userProfile !== this.props.userProfile) {
-            if (this.props.userProfile.isActive) {
-                localStorage.setItem('userDetails', this.props.userProfile.firstname + ' ' + this.props.userProfile.lastname)
-                localStorage.setItem('userProfile', JSON.stringify(this.props.userProfile))
-                history.push("/viewtranslate")
-            }
-        }
-    }
 
     render() {
         return (

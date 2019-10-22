@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import TranslateIcon from '@material-ui/icons/Translate';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import GroupIcon from '@material-ui/icons/Group';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SendIcon from '@material-ui/icons/Send';
 import classNames from 'classnames';
@@ -87,6 +88,15 @@ class Header extends React.Component {
 		const { auth, anchorEl, open } = this.state;
 		const openEl = Boolean(anchorEl);
 
+		var role = JSON.parse(localStorage.getItem('roles'));
+		var useRole = new Array();
+		role.map((item,value) => (
+			useRole.push(item),
+			value!==role.length-1 ? useRole.push(', '):null
+		))
+
+		
+
 		return (
 			<div>
 				<AppBar position="fixed" className={classNames(classes.appBar, open && classes.appBarShift)}>
@@ -100,7 +110,7 @@ class Header extends React.Component {
 							textTransform: 'capitalize',
 							right: '130px'
 						}}>
-							Welcome {this.state.name}
+							Welcome {this.state.name} {role.includes('admin')? '[Admin]':''}
 						</Typography>
 						{this.state.drawerClose}
 						{auth && (
@@ -162,6 +172,7 @@ class Header extends React.Component {
 									/>
 								</ListItem>
 								<Divider />
+								
 								<ListItem style={{ paddingTop: '8%', paddingBottom: '8%' }} button onClick={(event) => { this.handleDrawerClose(); history.push("/pdftranslate") }}>
 									<ListItemIcon>
 										<TranslateIcon style={{ color: 'white' }} />
@@ -188,12 +199,29 @@ class Header extends React.Component {
 										)}
 									/>
 								</ListItem>
+								{role.includes('admin') &&
+								<ListItem style={{ paddingTop: '8%', paddingBottom: '8%' }} button onClick={(event) => { this.handleDrawerClose(); history.push("/userdirectory") }}>
+									<ListItemIcon>
+										<GroupIcon style={{ color: 'white' }} />
+										</ListItemIcon>
+									<ListItemText
+										disableTypography
+										primary={(
+											<Typography type="body2" style={{ color: '#FFFFFF' }}>
+												User Management
+          							</Typography>
+										)}
+									/>
+									</ListItem>
+								}
 
 								<ListItem style={{ paddingTop: '17%', paddingBottom: '17%', marginTop: '67%', marginLeft: '82%' ,width:'18%'}} button onClick={(event) => { this.handleDrawerClose(); }}>
 									<ListItemIcon>
 										<ChevronLeftIcon style={{ color: 'white' }} />
 									</ListItemIcon>
 								</ListItem>
+
+								
 							</List>
 					</Drawer>
 						<main

@@ -7,6 +7,9 @@ import deletefile from './delete';
 import supportLanguage from './fetchlanguages';
 import langModel from './fetchmodel';
 import userProfile from './userprofile';
+import userList from './userdirectory';
+import userRoles from './userroles';
+import addUser from './adduser';
 import updatePasswordstatus from './updatepassword';
 
 export default {
@@ -19,6 +22,9 @@ export default {
     supportLanguage,
     langModel,
     userProfile,
-    updatePasswordstatus
+    updatePasswordstatus,
+    userList,
+    userRoles,
+    addUser
     
 };
