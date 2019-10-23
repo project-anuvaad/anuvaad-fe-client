@@ -38,7 +38,8 @@ class UserDirectory extends React.Component {
             snack: false,
             message: '',
             user:{},
-            newUser: false
+            newUser: false,
+            loginUser: localStorage.getItem('userDetails').split(" ")[0]
 
         }
     }
@@ -75,8 +76,9 @@ class UserDirectory extends React.Component {
         }
     }
     handleClick=(rowData)=>{
-        console.log("rowdata---",rowData)
+        rowData[1]!== this.state.loginUser?
         this.setState({openValue:true,user:rowData, newUser: rowData[0] ? false : true})
+        :''
         console.log(this.state.newUser)
 
     }
@@ -98,7 +100,7 @@ class UserDirectory extends React.Component {
     }
 
     render() {
-        
+       
         const columns = [
             {
                 name: "id",
@@ -185,10 +187,10 @@ class UserDirectory extends React.Component {
                     if (tableMeta.rowData) {
                         return (
                             <div >
-
-<Button variant="contained"  onClick={(event) => { this.handleSubmit(tableMeta.rowData[0], tableMeta.rowData[1], tableMeta.rowData[7] ? "DELETE":"ACTIVE" )}} color={tableMeta.rowData[7] ? "":'primary'} aria-label="edit" style={{ width: '170px',marginLeft:'-13%', marginBottom: '4%', marginTop: '4%' }}>
-{tableMeta.rowData[7] ?  "Deactivate": "Activate" }
-                </Button>
+                        {tableMeta.rowData[1]!== this.state.loginUser ? 
+                        <Button variant="contained"  onClick={(event) => { this.handleSubmit(tableMeta.rowData[0], tableMeta.rowData[1], tableMeta.rowData[7] ? "DELETE":"ACTIVE" )}} color={tableMeta.rowData[7] ? "":'primary'} aria-label="edit" style={{ width: '170px',marginLeft:'-13%', marginBottom: '4%', marginTop: '4%' }}>
+                            {tableMeta.rowData[7] ?  "Deactivate": "Activate" }
+                        </Button> :''}
                               </div>   
                         );
                     }
@@ -208,7 +210,8 @@ class UserDirectory extends React.Component {
             filter: false,
             selectableRows: 'none',
             rowsPerPage : 10,
-            // onRowClick: rowData => this.handleClick(rowData)
+            
+            onRowClick: rowData => this.handleClick(rowData)
         };
 
         console.log("user",this.state.user)

@@ -12,6 +12,7 @@ import userRoles from './userroles';
 import addUser from './adduser';
 import updatePasswordstatus from './updatepassword';
 
+
 export default {
     login,
     apistatus,
@@ -25,6 +26,7 @@ export default {
     updatePasswordstatus,
     userList,
     userRoles,
-    addUser
+    addUser,
+    
     
 };
