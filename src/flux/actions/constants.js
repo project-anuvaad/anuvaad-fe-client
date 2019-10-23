@@ -19,7 +19,8 @@ const constants = {
     USER_DIRECTORY: 'USER_DIRECTORY',
     USER_ROLES: 'USER_ROLES',
     ADD_USER: 'ADD_USER',
-    DELETE_USER: 'DELETE_USER'
+    DELETE_USER: 'DELETE_USER',
+    FETCH_GRADER_REPORT: 'FETCH_GRADER_REPORT'
 };
 
 export default constants;

@@ -8,7 +8,7 @@ import SelectModel from '@material-ui/core/Select';
 import MySnackbarContentWrapper from "../../components/web/common/Snackbar";
 import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from "@material-ui/core/OutlinedInput";
-import { Tooltip } from '@material-ui/core';
+import Updatepassword from "../../../flux/actions/apis/updateadminpassword";
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { white, blueGrey50,darkBlack } from "material-ui/styles/colors";
@@ -62,6 +62,19 @@ class UserUpdate extends React.Component {
     
       const { APITransport } = this.props;
       const apiObj = new AddUser(this.state.userid, this.state.firstname, this.state.lastname, this.state.userpassword,this.state.email, this.state.roles);
+      APITransport(apiObj);
+      this.setState({ showLoader: true })
+      
+      setTimeout(()=>{this.setState({value:true})}, 1000);
+      
+    
+  }
+
+  handlePasswordSubmit = (id) => {
+    
+    
+      const { APITransport } = this.props;
+      const apiObj = new Updatepassword(id,this.state.userpassword);
       APITransport(apiObj);
       this.setState({ showLoader: true })
       
@@ -127,39 +140,42 @@ handleDelete = data => () => {
     })
   }
     render() {
-      var { openValue, handleCancel, newUser } = this.props;
+      var { openValue, handleCancel, newUser,userDetails } = this.props;
       var {userDetails}  = this.state;
         return (
           <div style={{position:'fixed'}}>
           {openValue &&
           <Paper style={{marginTop:"10px",marginRight:'30px', marginLeft:'-20px'}}>
-            <Typography gutterBottom variant="title" component="h2" style={{background:blueGrey50,paddingLeft:"35%",paddingTop:'13px',paddingBottom:'13px', width: '65%', marginBottom: '4%'}}>
-            {newUser ?  "Add New User" : "User Details Update"}
+            <Typography gutterBottom variant="title"  component="h2" style={{background:blueGrey50,paddingLeft:"35%",paddingTop:'13px',paddingBottom:'13px', width: '65%', marginBottom: '4%'}}>
+            {newUser ?  "Add New User" : "Password Update"}
                 </Typography><br/>
             <form method="post">
 
               <FormControl fullWidth>
-                <TextField  id="standard-name" label="UserId" value={this.state.userid? this.state.userid : '' } required type="text"  onChange={(event) => { this.handleTextChange('userid', event) }}
+                <TextField  id="standard-name" InputProps={{
+          readOnly: userDetails[1]? true:false,
+        }}  label="UserId" value={this.state.userid? this.state.userid : '' } required type="text"  onChange={(event) => { this.handleTextChange('userid', event) }}
                   margin="normal" varient="outlined" style={{ marginLeft:'5%', width: '90%', marginBottom: '4%' }}
                 />
 
               </FormControl>
               <FormControl fullWidth>
-                <TextField id={this.state.firstname} label="First Name" placeholder={"First Name"} required value={this.state.firstname ? this.state.firstname : ''} type="text"  onChange={(event) => { this.handleTextChange('firstname', event) }}
+                <TextField id={this.state.firstname} label="First Name" InputProps={{ readOnly: userDetails[1]? true:false}} placeholder={"First Name"} required value={this.state.firstname ? this.state.firstname : ''} type="text"  onChange={(event) => { this.handleTextChange('firstname', event) }}
                   margin="normal" varient="outlined" style={{ marginLeft:'5%', width: '90%', marginBottom: '4%' }}
                 />
 
               </FormControl>
               <FormControl fullWidth>
-                <TextField  label="Last Name" value={this.state.lastname ? this.state.lastname : ''} required id="outlined-required" type="text" onChange={(event) => { this.handleTextChange('lastname', event) }}
+                <TextField  label="Last Name" InputProps={{ readOnly: userDetails[1]? true:false}} value={this.state.lastname ? this.state.lastname : ''} required id="outlined-required" type="text" onChange={(event) => { this.handleTextChange('lastname', event) }}
                   margin="normal" varient="outlined" style={{ marginLeft:'5%', width: '90%', marginBottom: '4%' }}
                 />                </FormControl>
               <FormControl style={{ marginLeft:'5%', width: '90%', marginBottom: '4%' }}>
-          <InputLabel htmlFor="adornment-password">Password*</InputLabel>
+          <InputLabel htmlFor="adornment-password">Password* (min 6 char)</InputLabel>
           <Input
            
             id="adornment-password"
             type={this.state.showPassword ? 'text' : 'password'}
+
             value={this.state.userpassword}
             onChange={(event) => { this.handleTextChange('userpassword', event) }}
             endAdornment={
@@ -175,7 +191,7 @@ handleDelete = data => () => {
           />
         </FormControl>
 <FormControl fullWidth>
-                <TextField label="Email ID" value={this.state.email ? this.state.email : ''} required id="outlined-required" type="text" onChange={(event) => { this.handleTextChange('email', event) }}
+                <TextField label="Email ID" value={this.state.email ? this.state.email : ''} InputProps={{ readOnly: userDetails[1]? true:false}}  id="outlined-required" type="text" onChange={(event) => { this.handleTextChange('email', event) }}
                   margin="normal" varient="outlined" style={{ marginLeft:'5%', width: '90%', marginBottom: '4%' }}
                 />                </FormControl>
 
@@ -186,6 +202,7 @@ handleDelete = data => () => {
 
             <Grid item xs={4} sm={4} lg={4} xl={4}>
 <SelectModel id="select-multiple-chip"
+                disabled=  {userDetails[1]? true:false}
                 multiple={true}
                 style={{minWidth: 160,align:'right',maxWidth: 160}}
                 value={this.state.roles? this.state.roles : []}
@@ -202,12 +219,14 @@ handleDelete = data => () => {
             
 
             </Grid>
+            {!userDetails[1]&&
             <Grid item xs={12} sm={12} lg={12} xl={12} style={{ marginLeft:'5%', width: '90%', marginBottom: '4%' }}>
             {this.state.roles && this.state.roles.map(value => (
                   <Chip key={value} label={value}  onDelete={this.handleDelete(value)} />
                 ))
             }
             </Grid>
+            }
             </Grid>
                 <span style={{ marginLeft: '20%', color: 'red' }}>{this.state.message}</span>
                 <Snackbar anchorOrigin={{ vertical: "top", horizontal: "right" }} open={this.state.open} autoHideDuration={6000}>
@@ -220,9 +239,13 @@ handleDelete = data => () => {
                   <Button variant="contained" onClick={() => {handleCancel(false)}} color="primary" aria-label="edit" style={{ width: '40%',marginLeft:'-13%', marginBottom: '4%', marginTop: '4%' }}>
                     Cancel
                 </Button>
-                  <Button variant="contained" disabled={this.state.firstname && this.state.lastname && this.state.userid && this.state.email ? false : true} onClick={this.handleSubmit} color="primary" aria-label="edit" style={{ width: '40%', marginBottom: '4%', marginTop: '4%',marginLeft:'5%' }}>
-                    Add
-                </Button>
+                {!userDetails[1]?
+                  <Button variant="contained" disabled={userDetails[1]? (this.state.userpassword.length>5 ?false :true ): (this.state.firstname && this.state.lastname && this.state.userid && this.state.email ? false : true)} onClick={this.handleSubmit} color="primary" aria-label="edit" style={{ width: '40%', marginBottom: '4%', marginTop: '4%',marginLeft:'5%' }}>
+                     Add
+                </Button>:
+                <Button variant="contained" disabled={userDetails[1]? (this.state.userpassword.length>5 ?false :true ): (this.state.firstname && this.state.lastname && this.state.userid && this.state.email ? false : true)} onClick={() => {this.handlePasswordSubmit(userDetails[0])}} color="primary" aria-label="edit" style={{ width: '40%', marginBottom: '4%', marginTop: '4%',marginLeft:'5%' }}>
+                    Update
+                </Button>}
                 </form>
                 {this.state.value ? handleCancel(false): ''}
                 </Paper>

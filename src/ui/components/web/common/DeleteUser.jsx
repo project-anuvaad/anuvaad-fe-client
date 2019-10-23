@@ -34,7 +34,7 @@ export default class UserDelete extends React.Component {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            Are you sure you want to {status =="DELETE"? "delete " : "activate " }{name}?
+                            Are you sure you want to {status =="DELETE"? "deactivate " : "activate " }{name}?
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
