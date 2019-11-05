@@ -1,5 +1,5 @@
 const configs = {
-    BASE_URL: (process.env.REACT_APP_APIGW_BASE_URL ? process.env.REACT_APP_APIGW_BASE_URL : 'http://documents.anuvaad.org')+ '/app/',
+    BASE_URL: (process.env.REACT_APP_APIGW_BASE_URL ? process.env.REACT_APP_APIGW_BASE_URL : 'http://documents.anuvaad.org/')+ '/',
     AUTH_ENDPOINT: 'oauth2/authorize',
     LOGOUT_ENDPOINT: 'logout',
     POST_LOGOUT_URL:'returnTo='+window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : ''),
